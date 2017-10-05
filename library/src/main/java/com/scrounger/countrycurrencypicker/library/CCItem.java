@@ -129,7 +129,8 @@ public class CCItem implements Parcelable {
                 @Override
                 public boolean apply(CCItem input) {
                     return input.getCountryName().toLowerCase().contains(filter.toLowerCase()) ||
-                            input.getCurrencyName().toLowerCase().contains(filter.toLowerCase());
+                            input.getCurrencyName().toLowerCase().contains(filter.toLowerCase()) ||
+                            input.getCurrencySymbol().toLowerCase().contains(filter.toLowerCase());
                 }
             }));
         } else {
