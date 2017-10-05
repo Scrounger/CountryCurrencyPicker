@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:drawableStart="@drawable/ic_search"
-            android:hint="@string/search"
+            android:hint="@string/ccPicker_search"
             android:imeOptions="actionDone|flagNoFullscreen"
             android:inputType="text"
             android:maxLines="1" />

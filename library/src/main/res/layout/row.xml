@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/row_item_container"
+    style="@style/ccPicker_row_item_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
@@ -8,10 +8,10 @@
 
     <ImageView
         android:id="@+id/flag"
-        style="@style/row_item_icon_flag" />
+        style="@style/ccPicker_row_item_icon_flag" />
 
     <LinearLayout
-        style="@style/row_item_txt_container"
+        style="@style/ccPicker_row_item_txt_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -19,15 +19,15 @@
 
         <TextView
             android:id="@+id/countryName"
-            style="@style/row_item_txt_countryName" />
+            style="@style/ccPicker_row_item_txt_countryName" />
 
         <TextView
             android:id="@+id/currencyName"
-            style="@style/row_item_txt_currencyName" />
+            style="@style/ccPicker_row_item_txt_currencyName" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/currencySymbol"
-        style="@style/row_item_txt_currencySymbol" />
+        style="@style/ccPicker_row_item_txt_currencySymbol" />
 
 </LinearLayout>

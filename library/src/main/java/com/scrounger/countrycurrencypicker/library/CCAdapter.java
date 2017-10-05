@@ -64,13 +64,15 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void setItem(Country item) {
             myCCItem = item;
 
-            if (myCCItem != null && myCCItem.getFlagId() != 0) {
-                flag.setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), myCCItem.getFlagId()));
-            }
+            if (myCCItem != null) {
+                if (myCCItem.getFlagId() != 0) {
+                    flag.setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), myCCItem.getFlagId()));
+                }
 
-            txtCountry.setText(myCCItem.getName() + " (" + myCCItem.getCode() + ")");
-            txtCurrency.setText(myCCItem.getCurrency().getName());
-            txtCurrencySymbol.setText(myCCItem.getCurrency().getSymbol());
+                txtCountry.setText(myCCItem.getName() + " (" + myCCItem.getCode() + ")");
+                txtCurrency.setText(myCCItem.getCurrency().getName());
+                txtCurrencySymbol.setText(myCCItem.getCurrency().getSymbol());
+            }
         }
 
         @Override
