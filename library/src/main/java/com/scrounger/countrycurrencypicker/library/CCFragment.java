@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -82,6 +84,23 @@ public class CCFragment extends DialogFragment {
                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(txtSearch.getWindowToken(), 0);
                 return false;
+            }
+        });
+
+        txtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                setRecyclerView(CCItem.filtered(getActivity(), editable.toString()));
             }
         });
     }

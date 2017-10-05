@@ -5,6 +5,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.DrawableRes;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -114,6 +117,22 @@ public class CCItem implements Parcelable {
         });
 
         return list;
+    }
+
+    public static ArrayList<CCItem> filtered(Context context, final String filter) {
+        ArrayList<CCItem> list = listAll(context);
+
+        if (filter != null && filter.length() > 0) {
+            return new ArrayList<>(Collections2.filter(list, new Predicate<CCItem>() {
+                @Override
+                public boolean apply(CCItem input) {
+                    return input.getCountryName().toLowerCase().contains(filter.toLowerCase()) ||
+                            input.getCurrencyName().toLowerCase().contains(filter.toLowerCase());
+                }
+            }));
+        } else {
+            return list;
+        }
     }
 
     @DrawableRes
