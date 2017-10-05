@@ -8,6 +8,7 @@ import android.support.annotation.DrawableRes;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -112,7 +113,7 @@ public class CCItem implements Parcelable {
         Collections.sort(list, new Comparator<CCItem>() {
             @Override
             public int compare(CCItem ccItem, CCItem ccItem2) {
-                return ccItem.getCountryName().compareTo(ccItem2.getCountryName());
+                return removeAccents(ccItem.getCountryName()).toLowerCase().compareTo(removeAccents(ccItem2.getCountryName()).toLowerCase());
             }
         });
 
@@ -140,6 +141,11 @@ public class CCItem implements Parcelable {
         String drawableName = "flag_" + countryCode.toLowerCase(Locale.ENGLISH);
         return context.getResources()
                 .getIdentifier(drawableName, "drawable", context.getPackageName());
+    }
+
+    public static String removeAccents(String str) {
+        return Normalizer.normalize(str, Normalizer.Form.NFD)
+                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
     }
 
     //region Parcelable
