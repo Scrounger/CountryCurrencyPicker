@@ -3,10 +3,14 @@ package com.scrounger.countrycurrencypicker.library;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+
+import java.util.ArrayList;
 
 
 public class CCFragment extends DialogFragment {
@@ -19,6 +23,9 @@ public class CCFragment extends DialogFragment {
     private CCPickerListener mListener;
 
     private EditText txtSearch;
+    private RecyclerView mRecyclerView;
+    private LinearLayoutManager mLinearLayoutManager;
+    private CCAdapter mAdapter;
 
     //endregion
 
@@ -53,7 +60,22 @@ public class CCFragment extends DialogFragment {
         super.onActivityCreated(savedInstanceState);
 
         txtSearch = (EditText) myView.findViewById(R.id.txt_search);
+        mRecyclerView = (RecyclerView) myView.findViewById(R.id.recycler);
+
+        mLinearLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+
+        setRecyclerView(CCItem.listAll(getActivity()));
 
     }
     //endregion
+
+    private void setRecyclerView(ArrayList<CCItem> ccItemArrayList) {
+        if (ccItemArrayList == null) {
+            mAdapter = new CCAdapter(new ArrayList<CCItem>());
+        } else {
+            mAdapter = new CCAdapter(new ArrayList<>(ccItemArrayList));
+        }
+        mRecyclerView.setAdapter(mAdapter);
+    }
 }

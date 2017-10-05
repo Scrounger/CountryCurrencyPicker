@@ -1,7 +1,15 @@
 package com.scrounger.countrycurrencypicker.library;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.DrawableRes;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Currency;
+import java.util.Locale;
 
 public class CCItem implements Parcelable {
 
@@ -55,14 +63,64 @@ public class CCItem implements Parcelable {
     public void setCurrencySymbol(String currencySymbol) {
         this.currencySymbol = currencySymbol;
     }
+
+    @DrawableRes
+    private Integer flagId;
+
+    public Integer getFlagId() {
+        return flagId;
+    }
+
+    public void setFlagId(Integer flagId) {
+        this.flagId = flagId;
+    }
     //endregion
 
-    public CCItem(String countryCode, String countryName, String currencyCode, String currencyName, String currencySymbol) {
+    public CCItem(String countryCode, String countryName, String currencyCode, String currencyName, String currencySymbol, @DrawableRes Integer flagId) {
         this.countryCode = countryCode;
         this.countryName = countryName;
         this.currencyCode = currencyCode;
         this.currencyName = currencyName;
         this.currencySymbol = currencySymbol;
+        this.flagId = flagId;
+    }
+
+    public static ArrayList<CCItem> listAll(Context context) {
+        ArrayList<CCItem> list = new ArrayList<>();
+
+        for (String countryCode : Locale.getISOCountries()) {
+            Locale locale = new Locale("", countryCode);
+            Currency currency = Currency.getInstance(locale);
+
+            if (currency != null) {
+                //z.B. Antarktis is null -> keine Währung
+                CCItem country = new CCItem(
+                        countryCode,
+                        locale.getDisplayCountry(),
+                        currency.getCurrencyCode(),
+                        currency.getDisplayName(),
+                        currency.getSymbol(),
+                        getFlagDrawableId(countryCode, context));
+
+                list.add(country);
+            }
+        }
+
+        Collections.sort(list, new Comparator<CCItem>() {
+            @Override
+            public int compare(CCItem ccItem, CCItem ccItem2) {
+                return ccItem.getCountryName().compareTo(ccItem2.getCountryName());
+            }
+        });
+
+        return list;
+    }
+
+    @DrawableRes
+    private static Integer getFlagDrawableId(String countryCode, Context context) {
+        String drawableName = "flag_" + countryCode.toLowerCase(Locale.ENGLISH);
+        return context.getResources()
+                .getIdentifier(drawableName, "drawable", context.getPackageName());
     }
 
     //region Parcelable
