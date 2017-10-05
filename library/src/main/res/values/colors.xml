@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="txtColor_countryName">#0277bd</color>
-    <color name="txtColor_currencyName">@android:color/secondary_text_dark</color>
-</resources>

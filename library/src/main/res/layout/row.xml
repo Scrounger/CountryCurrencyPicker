@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/row_item_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?attr/selectableItemBackground"
     android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:paddingBottom="@dimen/row_item_padding_vertical"
-    android:paddingEnd="@dimen/row_item_padding_horizontal"
-    android:paddingStart="@dimen/row_item_padding_horizontal"
-    android:paddingTop="@dimen/row_item_padding_vertical">
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/flag"
