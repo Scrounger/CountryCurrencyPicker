@@ -97,7 +97,6 @@ public class CCItem implements Parcelable {
             Locale locale = new Locale("", countryCode);
             Currency currency = Currency.getInstance(locale);
 
-
             if (currency != null) {
                 //z.B. Antarktis is null -> keine Währung
                 CCItem country = new CCItem(
@@ -146,7 +145,7 @@ public class CCItem implements Parcelable {
                 .getIdentifier(drawableName, "drawable", context.getPackageName());
     }
 
-    public static String removeAccents(String str) {
+    private static String removeAccents(String str) {
         return Normalizer.normalize(str, Normalizer.Form.NFD)
                 .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
     }
@@ -164,17 +163,16 @@ public class CCItem implements Parcelable {
         dest.writeString(this.currencyCode);
         dest.writeString(this.currencyName);
         dest.writeString(this.currencySymbol);
+        dest.writeValue(this.flagId);
     }
 
-    public CCItem() {
-    }
-
-    protected CCItem(Parcel in) {
+    private CCItem(Parcel in) {
         this.countryCode = in.readString();
         this.countryName = in.readString();
         this.currencyCode = in.readString();
         this.currencyName = in.readString();
         this.currencySymbol = in.readString();
+        this.flagId = (Integer) in.readValue(Integer.class.getClassLoader());
     }
 
     public static final Creator<CCItem> CREATOR = new Creator<CCItem>() {
