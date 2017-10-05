@@ -4,9 +4,13 @@ import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
+import com.google.common.collect.Iterables;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -14,8 +18,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Currency;
 import java.util.Locale;
+import java.util.NoSuchElementException;
 
 public class CCItem implements Parcelable {
+    private final static String logTAG = CCItem.class.getName() + ".";
 
     //region Members
     private String countryCode;
@@ -81,6 +87,7 @@ public class CCItem implements Parcelable {
     }
     //endregion
 
+    //region Constructor
     public CCItem(String countryCode, String countryName, String currencyCode, String currencyName, String currencySymbol, @DrawableRes Integer flagId) {
         this.countryCode = countryCode;
         this.countryName = countryName;
@@ -89,7 +96,9 @@ public class CCItem implements Parcelable {
         this.currencySymbol = currencySymbol;
         this.flagId = flagId;
     }
+    //endregion
 
+    //region Retrieve
     public static ArrayList<CCItem> listAll(Context context) {
         ArrayList<CCItem> list = new ArrayList<>();
 
@@ -121,7 +130,7 @@ public class CCItem implements Parcelable {
         return list;
     }
 
-    public static ArrayList<CCItem> filtered(Context context, final String filter) {
+    public static ArrayList<CCItem> getFilteredList(Context context, final String filter) {
         ArrayList<CCItem> list = listAll(context);
 
         if (filter != null && filter.length() > 0) {
@@ -138,6 +147,26 @@ public class CCItem implements Parcelable {
         }
     }
 
+    @Nullable
+    public static CCItem getItemByCountryCode(final String countryCode, Context context) {
+        ArrayList<CCItem> list = listAll(context);
+
+        try {
+            return Iterables.find(list, new Predicate<CCItem>() {
+                @Override
+                public boolean apply(CCItem input) {
+                    return input.getCountryCode().equals(countryCode);
+                }
+            });
+        } catch (NoSuchElementException e) {
+            Log.e(logTAG, String.format("countryCode '%s' not exist!", countryCode));
+            return null;
+        }
+    }
+    //endregion
+
+    //region Functions
+    @NonNull
     @DrawableRes
     private static Integer getFlagDrawableId(String countryCode, Context context) {
         String drawableName = "flag_" + countryCode.toLowerCase(Locale.ENGLISH);
@@ -149,6 +178,7 @@ public class CCItem implements Parcelable {
         return Normalizer.normalize(str, Normalizer.Form.NFD)
                 .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
     }
+    //endregion
 
     //region Parcelable
     @Override

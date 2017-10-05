@@ -131,7 +131,7 @@ public class CCPicker extends DialogFragment {
         protected ArrayList<CCItem> doInBackground(String... strings) {
             ArrayList<CCItem> list = null;
             for (String filterString : strings) {
-                list = CCItem.filtered(getActivity(), filterString);
+                list = CCItem.getFilteredList(getActivity(), filterString);
             }
 
             return list;
