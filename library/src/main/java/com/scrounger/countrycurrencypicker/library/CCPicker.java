@@ -34,7 +34,6 @@ public class CCPicker extends DialogFragment {
     private CCAdapter mAdapter;
 
     private FilterListAsync filterListAsync;
-
     //endregion
 
     //region Constructor
@@ -73,13 +72,17 @@ public class CCPicker extends DialogFragment {
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        setRecyclerView(CCItem.listAll(getActivity()));
-
         EventsListener();
     }
     //endregion
 
     //region Events
+    @Override
+    public void onStart() {
+        super.onStart();
+        getData(null);
+    }
+
     private void EventsListener() {
         mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -103,11 +106,8 @@ public class CCPicker extends DialogFragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (filterListAsync == null) {
-                    filterListAsync = (FilterListAsync) new FilterListAsync().execute(editable.toString());
-                } else {
-                    filterListAsync.cancel(true);
-                    filterListAsync = (FilterListAsync) new FilterListAsync().execute(editable.toString());
+                if (txtSearch.hasFocus() && txtSearch.length() > 0) {
+                    getData(editable.toString());
                 }
             }
         });
@@ -115,6 +115,15 @@ public class CCPicker extends DialogFragment {
     //endregion
 
     //region Functions
+    private void getData(String filterString) {
+        if (filterListAsync == null) {
+            filterListAsync = (FilterListAsync) new FilterListAsync().execute(filterString);
+        } else {
+            filterListAsync.cancel(true);
+            filterListAsync = (FilterListAsync) new FilterListAsync().execute(filterString);
+        }
+    }
+
     private void setRecyclerView(ArrayList<CCItem> ccItemArrayList) {
         if (ccItemArrayList == null) {
             mAdapter = new CCAdapter(new ArrayList<CCItem>(), mListener);
