@@ -1,6 +1,7 @@
 package com.scrounger.countrycurrencypicker.library;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -31,6 +32,8 @@ public class CCPicker extends DialogFragment {
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private CCAdapter mAdapter;
+
+    private FilterListAsync filterListAsync;
 
     //endregion
 
@@ -100,7 +103,12 @@ public class CCPicker extends DialogFragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                setRecyclerView(CCItem.filtered(getActivity(), editable.toString()));
+                if (filterListAsync == null) {
+                    filterListAsync = (FilterListAsync) new FilterListAsync().execute(editable.toString());
+                } else {
+                    filterListAsync.cancel(true);
+                    filterListAsync = (FilterListAsync) new FilterListAsync().execute(editable.toString());
+                }
             }
         });
     }
@@ -116,4 +124,23 @@ public class CCPicker extends DialogFragment {
         mRecyclerView.setAdapter(mAdapter);
     }
     //endregion
+
+    private class FilterListAsync extends AsyncTask<String, Void, ArrayList<CCItem>> {
+
+        @Override
+        protected ArrayList<CCItem> doInBackground(String... strings) {
+            ArrayList<CCItem> list = null;
+            for (String filterString : strings) {
+                list = CCItem.filtered(getActivity(), filterString);
+            }
+
+            return list;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<CCItem> result) {
+            super.onPostExecute(result);
+            setRecyclerView(result);
+        }
+    }
 }
