@@ -1,0 +1,5 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="row_item_padding_horizontal">8dp</dimen>
+    <dimen name="row_item_padding_vertical">0dp</dimen>
+</resources>

@@ -1,11 +1,43 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar" />
+
+    <!-- Styles for recyclerView row-->
+    <style name="row_item_icon_flag">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+    </style>
+
+    <style name="row_item_txt_container">
+        <!--Style for container with countryName and currencyName-->
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+    </style>
+
+    <style name="row_item_txt_countryName">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/txtColor_countryName</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="row_item_txt_currencyName">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/txtColor_currencyName</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="row_item_txt_currencySymbol">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

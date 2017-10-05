@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:drawableLeft="@drawable/ic_search"
         android:drawableStart="@drawable/ic_search"
         android:hint="@string/search" />
 

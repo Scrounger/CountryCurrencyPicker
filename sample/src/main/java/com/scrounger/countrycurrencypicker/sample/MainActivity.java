@@ -2,6 +2,7 @@ package com.scrounger.countrycurrencypicker.sample;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.scrounger.countrycurrencypicker.library.CCFragment;
 import com.scrounger.countrycurrencypicker.library.CCPickerListener;
@@ -18,7 +19,9 @@ public class MainActivity extends AppCompatActivity {
                         CCFragment.newInstance(new CCPickerListener() {
                             @Override
                             public void onSelect(String countryName, String countryCode, String currencyCode, String currencyName, String currencySymbol) {
-
+                                Toast.makeText(MainActivity.this,
+                                        String.format("name: %s\ncurrencySymbol: %s", countryName, currencySymbol)
+                                        , Toast.LENGTH_SHORT).show();
                             }
                         }))
                 .commit();

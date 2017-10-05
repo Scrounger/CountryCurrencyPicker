@@ -19,9 +19,11 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ViewHolderItem mHolder;
     private ArrayList<CCItem> mItemList;
+    private CCPickerListener mListener;
 
-    public CCAdapter(ArrayList<CCItem> mItemList) {
+    public CCAdapter(ArrayList<CCItem> mItemList, CCPickerListener listener) {
         this.mItemList = mItemList;
+        this.mListener = listener;
     }
 
     @Override
@@ -47,14 +49,19 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         //region Members
         private CCItem myCCItem;
         private ImageView flag;
-        private TextView txtTitle;
+        private TextView txtCountry;
+        private TextView txtCurrency;
+        private TextView txtCurrencySymbol;
+        //endregion
 
         public ViewHolderItem(View parent) {
             super(parent);
             itemView.setOnClickListener(this);
 
-            txtTitle = (TextView) itemView.findViewById(R.id.title);
             flag = (ImageView) itemView.findViewById(R.id.flag);
+            txtCountry = (TextView) itemView.findViewById(R.id.countryName);
+            txtCurrency = (TextView) itemView.findViewById(R.id.currencyName);
+            txtCurrencySymbol = (TextView) itemView.findViewById(R.id.currencySymbol);
         }
 
         public void setItem(CCItem item) {
@@ -64,12 +71,14 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 flag.setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), myCCItem.getFlagId()));
             }
 
-            txtTitle.setText(item.getCountryName());
+            txtCountry.setText(myCCItem.getCountryName());
+            txtCurrency.setText(myCCItem.getCurrencyName());
+            txtCurrencySymbol.setText(myCCItem.getCurrencySymbol());
         }
 
         @Override
         public void onClick(View view) {
-
+            mListener.onSelect(myCCItem.getCountryName(), myCCItem.getCountryCode(), myCCItem.getCurrencyCode(), myCCItem.getCurrencyName(), myCCItem.getCurrencySymbol());
         }
     }
 }
