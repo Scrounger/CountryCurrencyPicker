@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:drawableStart="@drawable/ic_search"
-        android:hint="@string/search" />
+        android:hint="@string/search"
+        android:imeOptions="actionDone|flagNoFullscreen" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
