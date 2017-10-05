@@ -71,11 +71,12 @@ public class CCItem implements Parcelable {
     @DrawableRes
     private Integer flagId;
 
+    @DrawableRes
     public Integer getFlagId() {
         return flagId;
     }
 
-    public void setFlagId(Integer flagId) {
+    public void setFlagId(@DrawableRes Integer flagId) {
         this.flagId = flagId;
     }
     //endregion

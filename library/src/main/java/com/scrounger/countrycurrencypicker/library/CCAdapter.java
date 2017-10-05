@@ -10,9 +10,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by ab on 05.10.2017.
- */
 
 public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final String logTAG = CCAdapter.class.getName() + ".";
