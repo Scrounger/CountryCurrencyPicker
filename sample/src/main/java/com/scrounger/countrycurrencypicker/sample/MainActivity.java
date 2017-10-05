@@ -3,7 +3,7 @@ package com.scrounger.countrycurrencypicker.sample;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.scrounger.countrycurrencypicker.library.CCDialogFragment;
+import com.scrounger.countrycurrencypicker.library.CCFragment;
 import com.scrounger.countrycurrencypicker.library.CCPickerListener;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container,
-                        CCDialogFragment.newInstance(new CCPickerListener() {
+                        CCFragment.newInstance(new CCPickerListener() {
                             @Override
                             public void onSelect(String countryName, String countryCode, String currencyCode, String currencyName, String currencySymbol) {
 

@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 
-public class CCDialogFragment extends DialogFragment {
-    private final static String logTAG = CCDialogFragment.class.getName() + ".";
-    public final String DIALOG_NAME = CCDialogFragment.class.getName();
+public class CCFragment extends DialogFragment {
+    private final static String logTAG = CCFragment.class.getName() + ".";
+    public final String DIALOG_NAME = CCFragment.class.getName();
 
     //region Member
     private View myView;
@@ -23,11 +23,11 @@ public class CCDialogFragment extends DialogFragment {
     //endregion
 
     //region Constructor
-    public CCDialogFragment() {
+    public CCFragment() {
     }
 
-    public static CCDialogFragment newInstance(CCPickerListener listener) {
-        CCDialogFragment picker = new CCDialogFragment();
+    public static CCFragment newInstance(CCPickerListener listener) {
+        CCFragment picker = new CCFragment();
         picker.mListener = listener;
         return picker;
     }
