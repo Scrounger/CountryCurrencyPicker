@@ -109,7 +109,7 @@ public class CCPicker extends DialogFragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (txtSearch.hasFocus() && txtSearch.length() > 0) {
+                if (txtSearch.hasFocus()) {
                     getData(editable.toString());
                 }
             }
@@ -127,9 +127,9 @@ public class CCPicker extends DialogFragment {
         }
     }
 
-    private void setRecyclerView(ArrayList<CCItem> ccItemArrayList) {
+    private void setRecyclerView(ArrayList<Country> ccItemArrayList) {
         if (ccItemArrayList == null) {
-            mAdapter = new CCAdapter(new ArrayList<CCItem>(), mListener);
+            mAdapter = new CCAdapter(new ArrayList<Country>(), mListener);
         } else {
             mAdapter = new CCAdapter(new ArrayList<>(ccItemArrayList), mListener);
         }
@@ -137,7 +137,7 @@ public class CCPicker extends DialogFragment {
     }
     //endregion
 
-    private class FilterListAsync extends AsyncTask<String, Void, ArrayList<CCItem>> {
+    private class FilterListAsync extends AsyncTask<String, Void, ArrayList<Country>> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -145,17 +145,17 @@ public class CCPicker extends DialogFragment {
         }
 
         @Override
-        protected ArrayList<CCItem> doInBackground(String... strings) {
-            ArrayList<CCItem> list = null;
+        protected ArrayList<Country> doInBackground(String... strings) {
+            ArrayList<Country> list = null;
             for (String filterString : strings) {
-                list = CCItem.getFilteredList(getActivity(), filterString);
+                list = Country.listAllWithCurrencies(getActivity(), filterString);
             }
 
             return list;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<CCItem> result) {
+        protected void onPostExecute(ArrayList<Country> result) {
             super.onPostExecute(result);
             setRecyclerView(result);
             progressBar.setVisibility(View.GONE);

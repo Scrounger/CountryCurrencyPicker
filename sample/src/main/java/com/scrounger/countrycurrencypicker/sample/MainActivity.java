@@ -2,10 +2,8 @@ package com.scrounger.countrycurrencypicker.sample;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.scrounger.countrycurrencypicker.library.CCItem;
 import com.scrounger.countrycurrencypicker.library.CCPicker;
 import com.scrounger.countrycurrencypicker.library.CCPickerListener;
 
@@ -27,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }))
                 .commit();
+
 
 //        CCPicker picker = CCPicker.newInstance(new CCPickerListener() {
 //            @Override
