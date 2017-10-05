@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
@@ -29,6 +30,7 @@ public class CCPicker extends DialogFragment {
     private CCPickerListener mListener;
 
     private EditText txtSearch;
+    private ProgressBar progressBar;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private CCAdapter mAdapter;
@@ -67,6 +69,7 @@ public class CCPicker extends DialogFragment {
         super.onActivityCreated(savedInstanceState);
 
         txtSearch = (EditText) myView.findViewById(R.id.txt_search);
+        progressBar = (ProgressBar) myView.findViewById(R.id.progressbar);
         mRecyclerView = (RecyclerView) myView.findViewById(R.id.recycler);
 
         mLinearLayoutManager = new LinearLayoutManager(getContext());
@@ -135,6 +138,11 @@ public class CCPicker extends DialogFragment {
     //endregion
 
     private class FilterListAsync extends AsyncTask<String, Void, ArrayList<CCItem>> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected ArrayList<CCItem> doInBackground(String... strings) {
@@ -150,6 +158,7 @@ public class CCPicker extends DialogFragment {
         protected void onPostExecute(ArrayList<CCItem> result) {
             super.onPostExecute(result);
             setRecyclerView(result);
+            progressBar.setVisibility(View.GONE);
         }
     }
 }
