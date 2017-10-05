@@ -18,9 +18,9 @@ import android.widget.EditText;
 import java.util.ArrayList;
 
 
-public class CCFragment extends DialogFragment {
-    private final static String logTAG = CCFragment.class.getName() + ".";
-    public final String DIALOG_NAME = CCFragment.class.getName();
+public class CCPicker extends DialogFragment {
+    private final static String logTAG = CCPicker.class.getName() + ".";
+    public static final String DIALOG_NAME = CCPicker.class.getName();
 
     //region Member
     private View myView;
@@ -35,11 +35,11 @@ public class CCFragment extends DialogFragment {
     //endregion
 
     //region Constructor
-    public CCFragment() {
+    public CCPicker() {
     }
 
-    public static CCFragment newInstance(CCPickerListener listener) {
-        CCFragment picker = new CCFragment();
+    public static CCPicker newInstance(CCPickerListener listener) {
+        CCPicker picker = new CCPicker();
         picker.mListener = listener;
         return picker;
     }
