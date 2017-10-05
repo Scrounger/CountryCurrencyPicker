@@ -97,6 +97,7 @@ public class CCItem implements Parcelable {
             Locale locale = new Locale("", countryCode);
             Currency currency = Currency.getInstance(locale);
 
+
             if (currency != null) {
                 //z.B. Antarktis is null -> keine Währung
                 CCItem country = new CCItem(
