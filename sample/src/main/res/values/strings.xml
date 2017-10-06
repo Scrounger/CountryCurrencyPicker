@@ -4,4 +4,7 @@
     <string name="menu_country_dialog">Country Picker Dialog</string>
     <string name="menu_country_currency">Country And Currency Picker Fragment</string>
     <string name="menu_country_currency_dialog">Country And Currency Picker Dialog</string>
+
+    <string name="menu_currency">Currency Picker Fragment</string>
+    <string name="menu_currency_dialog">Currency Picker Dialog</string>
 </resources>

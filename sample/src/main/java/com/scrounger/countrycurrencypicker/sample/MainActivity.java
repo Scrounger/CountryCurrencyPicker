@@ -12,6 +12,7 @@ import com.scrounger.countrycurrencypicker.library.Country;
 import com.scrounger.countrycurrencypicker.library.CountryAndCurrencyPickerListener;
 import com.scrounger.countrycurrencypicker.library.CountryPickerListener;
 import com.scrounger.countrycurrencypicker.library.Currency;
+import com.scrounger.countrycurrencypicker.library.CurrencyPickerListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -91,8 +92,38 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             picker.show(getSupportFragmentManager(), CCPicker.DIALOG_NAME);
+
+        } else if (id == R.id.action_currency) {
+            getSupportActionBar().setTitle(R.string.menu_currency);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container,
+                            CCPicker.newInstance(new CurrencyPickerListener() {
+                                @Override
+                                public void onSelect(Currency currency) {
+                                    Toast.makeText(MainActivity.this,
+                                            String.format("name: %s\nsymbol: %s", currency.getName(), currency.getName())
+                                            , Toast.LENGTH_SHORT).show();
+                                }
+                            }))
+                    .commit();
+
+        } else if (id == R.id.action_currency_dialog) {
+            CCPicker picker = CCPicker.newInstance(new CurrencyPickerListener() {
+                @Override
+                public void onSelect(Currency currency) {
+                    Toast.makeText(MainActivity.this,
+                            String.format("name: %s\nsymbol: %s", currency.getName(), currency.getName())
+                            , Toast.LENGTH_SHORT).show();
+
+                    DialogFragment dialogFragment =
+                            (DialogFragment) getSupportFragmentManager().findFragmentByTag(CCPicker.DIALOG_NAME);
+                    dialogFragment.dismiss();
+                }
+            });
+            picker.show(getSupportFragmentManager(), CCPicker.DIALOG_NAME);
         }
-        
+
         return super.onOptionsItemSelected(item);
     }
 }

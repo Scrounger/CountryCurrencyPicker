@@ -22,4 +22,14 @@
         android:id="@+id/action_country_currency_dialog"
         android:title="@string/menu_country_currency_dialog"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_currency"
+        android:title="@string/menu_currency"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_currency_dialog"
+        android:title="@string/menu_currency_dialog"
+        app:showAsAction="never" />
 </menu>

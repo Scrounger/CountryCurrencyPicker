@@ -53,6 +53,12 @@ public class CCPicker extends DialogFragment {
         picker.mListener = listener;
         return picker;
     }
+
+    public static CCPicker newInstance(CurrencyPickerListener listener) {
+        CCPicker picker = new CCPicker();
+        picker.mListener = listener;
+        return picker;
+    }
     //endregion
 
     //region onCreate
