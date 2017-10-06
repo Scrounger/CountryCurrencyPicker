@@ -1,14 +1,19 @@
 package com.scrounger.countrycurrencypicker.library;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+
+import java.text.Normalizer;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Locale;
-
-/**
- * Created by ab on 05.10.2017.
- */
 
 public class Currency implements Parcelable {
 
@@ -46,6 +51,7 @@ public class Currency implements Parcelable {
     @DrawableRes
     private Integer flagId;
 
+    @NonNull
     @DrawableRes
     public Integer getFlagId() {
         return flagId;
@@ -58,6 +64,14 @@ public class Currency implements Parcelable {
         this.name = name;
         this.symbol = symbol;
     }
+
+    public Currency(String code, String name, String symbol, @DrawableRes Integer flagId) {
+        this.code = code;
+        this.name = name;
+        this.symbol = symbol;
+        this.flagId = flagId;
+    }
+
     //endregion
 
     //region Retrieve
@@ -73,6 +87,61 @@ public class Currency implements Parcelable {
         }
         return null;
     }
+
+    public static Currency getCurrency(java.util.Currency currency, Context context) {
+        return new Currency(
+                currency.getCurrencyCode(),
+                currency.getDisplayName(),
+                currency.getSymbol(),
+                getFlagDrawableId(currency.getCurrencyCode(), context));
+    }
+
+    public static ArrayList<Currency> listAll(Context context, final String filter) {
+        ArrayList<Currency> list = new ArrayList<>();
+
+        for (java.util.Currency currency : java.util.Currency.getAvailableCurrencies()) {
+            list.add(getCurrency(currency, context));
+        }
+
+        sortList(list);
+
+        if (filter != null && filter.length() > 0) {
+            return new ArrayList<>(Collections2.filter(list, new Predicate<Currency>() {
+                @Override
+                public boolean apply(Currency input) {
+                    return input.getName().toLowerCase().contains(filter.toLowerCase());
+                }
+            }));
+        } else {
+            return list;
+        }
+    }
+
+    //endregion
+
+    //region Functions
+    private static void sortList(ArrayList<Currency> list) {
+        Collections.sort(list, new Comparator<Currency>() {
+            @Override
+            public int compare(Currency ccItem, Currency ccItem2) {
+                return removeAccents(ccItem.getName()).toLowerCase().compareTo(removeAccents(ccItem2.getName()).toLowerCase());
+            }
+        });
+    }
+
+    @NonNull
+    @DrawableRes
+    private static Integer getFlagDrawableId(String currencyCode, Context context) {
+        String drawableName = "flag_" + currencyCode.toLowerCase();
+        return context.getResources()
+                .getIdentifier(drawableName, "drawable", context.getPackageName());
+    }
+
+    private static String removeAccents(String str) {
+        return Normalizer.normalize(str, Normalizer.Form.NFD)
+                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+    }
+
     //endregion
 
     //region Parcelable
