@@ -68,6 +68,18 @@ public class Currency implements Parcelable {
     public void setCountries(ArrayList<Country> countries) {
         this.countries = countries;
     }
+
+    private ArrayList<String> countriesNames;
+
+    @NonNull
+    public ArrayList<String> getCountriesNames() {
+        return countriesNames;
+    }
+
+    public void setCountriesNames(ArrayList<String> countriesNames) {
+        this.countriesNames = countriesNames;
+    }
+
     //endregion
 
     //region Constructor
@@ -129,6 +141,13 @@ public class Currency implements Parcelable {
 
         if (foundCountries.size() > 0) {
             myCurrency.setCountries(foundCountries);
+
+            ArrayList<String> names = new ArrayList<>();
+            for (Country country : foundCountries) {
+                names.add(country.getName());
+            }
+            myCurrency.setCountriesNames(names);
+
             return myCurrency;
         }
         return null;

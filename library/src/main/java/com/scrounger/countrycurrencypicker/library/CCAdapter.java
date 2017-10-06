@@ -2,6 +2,7 @@ package com.scrounger.countrycurrencypicker.library;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -147,7 +148,7 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 if (mListener instanceof CurrencyPickerListener) {
                     txtSubTitle.setVisibility(View.GONE);
                 } else if (mListener instanceof CurrencyAndCountriesPickerListener) {
-                    txtSubTitle.setText("" + myItem.getCountries().size());
+                    txtSubTitle.setText(TextUtils.join(", ", myItem.getCountriesNames()));
                 }
             }
         }
