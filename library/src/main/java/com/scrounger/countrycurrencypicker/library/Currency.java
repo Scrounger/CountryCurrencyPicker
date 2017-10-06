@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
+import com.google.common.collect.Iterables;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -155,7 +156,7 @@ public class Currency implements Parcelable {
         }
     }
 
-    public static ArrayList<Currency> listAllWithCountries(Context context, final String filter) {
+    public static ArrayList<Currency> listAllWithCountries(final Context context, final String filter) {
         ArrayList<Currency> list = new ArrayList<>();
 
         for (java.util.Currency currency : java.util.Currency.getAvailableCurrencies()) {
@@ -167,14 +168,19 @@ public class Currency implements Parcelable {
         }
 
         sortList(list);
-
-        //TODO: filter mit Countries
+        
         if (filter != null && filter.length() > 0) {
             return new ArrayList<>(Collections2.filter(list, new Predicate<Currency>() {
                 @Override
                 public boolean apply(Currency input) {
                     return input.getName().toLowerCase().contains(filter.toLowerCase()) ||
-                            input.getSymbol().toLowerCase().contains(filter.toLowerCase());
+                            input.getSymbol().toLowerCase().contains(filter.toLowerCase()) ||
+                            Iterables.indexOf(input.getCountries(), new Predicate<Country>() {
+                                @Override
+                                public boolean apply(Country input) {
+                                    return input.getName().toLowerCase().contains(filter.toLowerCase());
+                                }
+                            }) > 0;
                 }
             }));
         } else {
