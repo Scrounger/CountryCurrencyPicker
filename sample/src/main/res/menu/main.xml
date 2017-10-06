@@ -17,4 +17,9 @@
         android:id="@+id/action_country_currency"
         android:title="@string/menu_country_currency"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_country_currency_dialog"
+        android:title="@string/menu_country_currency_dialog"
+        app:showAsAction="never" />
 </menu>

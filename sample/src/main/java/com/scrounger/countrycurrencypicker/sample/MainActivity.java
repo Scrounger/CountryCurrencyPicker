@@ -76,7 +76,23 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }))
                     .commit();
+
+        } else if (id == R.id.action_country_currency_dialog) {
+            CCPicker picker = CCPicker.newInstance(new CountryAndCurrencyPickerListener() {
+                @Override
+                public void onSelect(Country country, Currency currency) {
+                    Toast.makeText(MainActivity.this,
+                            String.format("name: %s\ncurrencySymbol: %s", country.getName(), currency.getSymbol())
+                            , Toast.LENGTH_SHORT).show();
+
+                    DialogFragment dialogFragment =
+                            (DialogFragment) getSupportFragmentManager().findFragmentByTag(CCPicker.DIALOG_NAME);
+                    dialogFragment.dismiss();
+                }
+            });
+            picker.show(getSupportFragmentManager(), CCPicker.DIALOG_NAME);
         }
+        
         return super.onOptionsItemSelected(item);
     }
 }
