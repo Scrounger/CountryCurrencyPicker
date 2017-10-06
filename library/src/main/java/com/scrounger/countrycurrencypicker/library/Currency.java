@@ -141,7 +141,6 @@ public class Currency implements Parcelable {
         return Normalizer.normalize(str, Normalizer.Form.NFD)
                 .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
     }
-
     //endregion
 
     //region Parcelable
@@ -165,7 +164,7 @@ public class Currency implements Parcelable {
         this.flagId = (Integer) in.readValue(Integer.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<Currency> CREATOR = new Parcelable.Creator<Currency>() {
+    public static final Creator<Currency> CREATOR = new Creator<Currency>() {
         @Override
         public Currency createFromParcel(Parcel source) {
             return new Currency(source);
