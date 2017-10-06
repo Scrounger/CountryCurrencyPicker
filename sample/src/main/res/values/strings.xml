@@ -7,4 +7,7 @@
 
     <string name="menu_currency">Currency Picker Fragment</string>
     <string name="menu_currency_dialog">Currency Picker Dialog</string>
+    <string name="menu_currency_countries">Currency And Countries Picker Fragment</string>
+    <string name="menu_currency_countries_dialog">Currency And Countries Picker Dialog</string>
+
 </resources>

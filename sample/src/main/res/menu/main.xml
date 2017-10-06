@@ -32,4 +32,15 @@
         android:id="@+id/action_currency_dialog"
         android:title="@string/menu_currency_dialog"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_currency_countries"
+        android:title="@string/menu_currency_countries"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_currency_countries_dialog"
+        android:title="@string/menu_currency_countries_dialog"
+        app:showAsAction="never" />
+
 </menu>

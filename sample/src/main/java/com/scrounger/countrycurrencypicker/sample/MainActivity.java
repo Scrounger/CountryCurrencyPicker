@@ -9,9 +9,10 @@ import android.widget.Toast;
 
 import com.scrounger.countrycurrencypicker.library.CCPicker;
 import com.scrounger.countrycurrencypicker.library.Country;
-import com.scrounger.countrycurrencypicker.library.CountryAndCurrencyPickerListener;
+import com.scrounger.countrycurrencypicker.library.CountryAndCurrenciesPickerListener;
 import com.scrounger.countrycurrencypicker.library.CountryPickerListener;
 import com.scrounger.countrycurrencypicker.library.Currency;
+import com.scrounger.countrycurrencypicker.library.CurrencyAndCountriesPickerListener;
 import com.scrounger.countrycurrencypicker.library.CurrencyPickerListener;
 
 public class MainActivity extends AppCompatActivity {
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container,
-                            CCPicker.newInstance(new CountryAndCurrencyPickerListener() {
+                            CCPicker.newInstance(new CountryAndCurrenciesPickerListener() {
                                 @Override
                                 public void onSelect(Country country, Currency currency) {
                                     Toast.makeText(MainActivity.this,
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
 
         } else if (id == R.id.action_country_currency_dialog) {
-            CCPicker picker = CCPicker.newInstance(new CountryAndCurrencyPickerListener() {
+            CCPicker picker = CCPicker.newInstance(new CountryAndCurrenciesPickerListener() {
                 @Override
                 public void onSelect(Country country, Currency currency) {
                     Toast.makeText(MainActivity.this,
@@ -114,6 +115,36 @@ public class MainActivity extends AppCompatActivity {
                 public void onSelect(Currency currency) {
                     Toast.makeText(MainActivity.this,
                             String.format("name: %s\nsymbol: %s", currency.getName(), currency.getName())
+                            , Toast.LENGTH_SHORT).show();
+
+                    DialogFragment dialogFragment =
+                            (DialogFragment) getSupportFragmentManager().findFragmentByTag(CCPicker.DIALOG_NAME);
+                    dialogFragment.dismiss();
+                }
+            });
+            picker.show(getSupportFragmentManager(), CCPicker.DIALOG_NAME);
+
+        } else if (id == R.id.action_currency_countries) {
+            getSupportActionBar().setTitle(R.string.menu_currency_countries);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container,
+                            CCPicker.newInstance(new CurrencyAndCountriesPickerListener() {
+                                @Override
+                                public void onSelect(Currency currency, Country country) {
+                                    Toast.makeText(MainActivity.this,
+                                            String.format("name: %s\ncurrencySymbol: %s", country.getName(), currency.getSymbol())
+                                            , Toast.LENGTH_SHORT).show();
+                                }
+                            }))
+                    .commit();
+
+        } else if (id == R.id.action_currency_countries_dialog) {
+            CCPicker picker = CCPicker.newInstance(new CurrencyAndCountriesPickerListener() {
+                @Override
+                public void onSelect(Currency currency, Country country) {
+                    Toast.makeText(MainActivity.this,
+                            String.format("name: %s\ncurrencySymbol: %s", country.getName(), currency.getSymbol())
                             , Toast.LENGTH_SHORT).show();
 
                     DialogFragment dialogFragment =

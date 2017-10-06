@@ -94,7 +94,7 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 if (mListener instanceof CountryPickerListener) {
                     txtCodeOrSymbol.setText(myItem.getCode());
                     txtSubTitle.setVisibility(View.GONE);
-                } else if (mListener instanceof CountryAndCurrencyPickerListener) {
+                } else if (mListener instanceof CountryAndCurrenciesPickerListener) {
                     txtSubTitle.setText(myItem.getCurrency().getName());
                     txtCodeOrSymbol.setText(myItem.getCurrency().getSymbol());
                 }
@@ -105,8 +105,8 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void onClick(View view) {
             if (mListener instanceof CountryPickerListener) {
                 ((CountryPickerListener) mListener).onSelect(myItem);
-            } else if (mListener instanceof CountryAndCurrencyPickerListener) {
-                ((CountryAndCurrencyPickerListener) mListener).onSelect(myItem, myItem.getCurrency());
+            } else if (mListener instanceof CountryAndCurrenciesPickerListener) {
+                ((CountryAndCurrenciesPickerListener) mListener).onSelect(myItem, myItem.getCurrency());
             }
         }
     }
@@ -142,13 +142,12 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
 
                 txtTitle.setText(myItem.getName());
+                txtCodeOrSymbol.setText(myItem.getSymbol());
 
                 if (mListener instanceof CurrencyPickerListener) {
-                    txtCodeOrSymbol.setText(myItem.getCode());
                     txtSubTitle.setVisibility(View.GONE);
-                } else if (mListener instanceof CountryAndCurrencyPickerListener) {
-//                    txtSubTitle.setText(myItem.getCurrency().getName());
-//                    txtCodeOrSymbol.setText(myItem.getCurrency().getSymbol());
+                } else if (mListener instanceof CurrencyAndCountriesPickerListener) {
+                    txtSubTitle.setText("" + myItem.getCountries().size());
                 }
             }
         }
@@ -157,8 +156,8 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void onClick(View view) {
             if (mListener instanceof CurrencyPickerListener) {
                 ((CurrencyPickerListener) mListener).onSelect(myItem);
-            } else if (mListener instanceof CountryAndCurrencyPickerListener) {
-//                ((CurrencyAndCountryPickerListener) mListener).onSelect(myItem, myItem.getCurrency());
+            } else if (mListener instanceof CountryAndCurrenciesPickerListener) {
+//                ((CurrencyAndCountriesPickerListener) mListener).onSelect(myItem, myItem.getCurrency());
             }
         }
     }

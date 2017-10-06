@@ -48,13 +48,19 @@ public class CCPicker extends DialogFragment {
         return picker;
     }
 
-    public static CCPicker newInstance(CountryAndCurrencyPickerListener listener) {
+    public static CCPicker newInstance(CountryAndCurrenciesPickerListener listener) {
         CCPicker picker = new CCPicker();
         picker.mListener = listener;
         return picker;
     }
 
     public static CCPicker newInstance(CurrencyPickerListener listener) {
+        CCPicker picker = new CCPicker();
+        picker.mListener = listener;
+        return picker;
+    }
+
+    public static CCPicker newInstance(CurrencyAndCountriesPickerListener listener) {
         CCPicker picker = new CCPicker();
         picker.mListener = listener;
         return picker;
@@ -165,10 +171,12 @@ public class CCPicker extends DialogFragment {
 
                 if (mListener instanceof CountryPickerListener) {
                     mCountryList = Country.listAll(getActivity(), filterString);
-                } else if (mListener instanceof CountryAndCurrencyPickerListener) {
+                } else if (mListener instanceof CountryAndCurrenciesPickerListener) {
                     mCountryList = Country.listAllWithCurrencies(getActivity(), filterString);
                 } else if (mListener instanceof CurrencyPickerListener) {
                     mCurrencyList = Currency.listAll(getActivity(), filterString);
+                } else if (mListener instanceof CurrencyAndCountriesPickerListener) {
+                    mCurrencyList = Currency.listAllWithCountries(getActivity(), filterString);
                 }
             }
             return null;
