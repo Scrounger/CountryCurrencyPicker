@@ -67,8 +67,6 @@ public class Currency implements Parcelable {
     public void setCountries(ArrayList<Country> countries) {
         this.countries = countries;
     }
-
-
     //endregion
 
     //region Constructor
@@ -121,16 +119,19 @@ public class Currency implements Parcelable {
             tmpCountries = Country.listAllWithCurrencies(context, null);
         }
 
-        myCurrency.setCountries(new ArrayList<>(Collections2.filter(tmpCountries, new Predicate<Country>() {
+        ArrayList<Country> foundCountries = new ArrayList<>(Collections2.filter(tmpCountries, new Predicate<Country>() {
             @Override
             public boolean apply(Country input) {
                 return input.getCurrency().getCode().equals(myCurrency.getCode());
             }
-        })));
+        }));
 
-        return myCurrency;
+        if (foundCountries.size() > 0) {
+            myCurrency.setCountries(foundCountries);
+            return myCurrency;
+        }
+        return null;
     }
-
 
     public static ArrayList<Currency> listAll(Context context, final String filter) {
         ArrayList<Currency> list = new ArrayList<>();
@@ -158,7 +159,11 @@ public class Currency implements Parcelable {
         ArrayList<Currency> list = new ArrayList<>();
 
         for (java.util.Currency currency : java.util.Currency.getAvailableCurrencies()) {
-            list.add(getCurrency(currency, context));
+            Currency myCurrency = getCurrencyWithCountries(currency, context);
+
+            if (myCurrency != null) {
+                list.add(myCurrency);
+            }
         }
 
         sortList(list);
@@ -176,7 +181,6 @@ public class Currency implements Parcelable {
             return list;
         }
     }
-
     //endregion
 
     //region Functions
