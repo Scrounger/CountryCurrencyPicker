@@ -3,6 +3,7 @@ package com.scrounger.countrycurrencypicker.sample;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -14,6 +15,8 @@ import com.scrounger.countrycurrencypicker.library.CountryPickerListener;
 import com.scrounger.countrycurrencypicker.library.Currency;
 import com.scrounger.countrycurrencypicker.library.CurrencyAndCountriesPickerListener;
 import com.scrounger.countrycurrencypicker.library.CurrencyPickerListener;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -131,9 +134,9 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.container,
                             CCPicker.newInstance(new CurrencyAndCountriesPickerListener() {
                                 @Override
-                                public void onSelect(Currency currency, Country country) {
+                                public void onSelect(Currency currency, ArrayList<Country> countries, ArrayList<String> countriesNames) {
                                     Toast.makeText(MainActivity.this,
-                                            String.format("name: %s\ncurrencySymbol: %s", country.getName(), currency.getSymbol())
+                                            String.format("name: %s\ncurrencySymbol: %s\ncountries: %s", currency.getName(), currency.getSymbol(), TextUtils.join(", ", countriesNames))
                                             , Toast.LENGTH_SHORT).show();
                                 }
                             }))
@@ -142,9 +145,9 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.action_currency_countries_dialog) {
             CCPicker picker = CCPicker.newInstance(new CurrencyAndCountriesPickerListener() {
                 @Override
-                public void onSelect(Currency currency, Country country) {
+                public void onSelect(Currency currency, ArrayList<Country> countries, ArrayList<String> countriesNames) {
                     Toast.makeText(MainActivity.this,
-                            String.format("name: %s\ncurrencySymbol: %s", country.getName(), currency.getSymbol())
+                            String.format("name: %s\ncurrencySymbol: %s\ncountries: %s", currency.getName(), currency.getSymbol(), TextUtils.join(", ", countriesNames))
                             , Toast.LENGTH_SHORT).show();
 
                     DialogFragment dialogFragment =

@@ -157,8 +157,8 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void onClick(View view) {
             if (mListener instanceof CurrencyPickerListener) {
                 ((CurrencyPickerListener) mListener).onSelect(myItem);
-            } else if (mListener instanceof CountryAndCurrenciesPickerListener) {
-//                ((CurrencyAndCountriesPickerListener) mListener).onSelect(myItem, myItem.getCurrency());
+            } else if (mListener instanceof CurrencyAndCountriesPickerListener) {
+                ((CurrencyAndCountriesPickerListener) mListener).onSelect(myItem, myItem.getCountries(), myItem.getCountriesNames());
             }
         }
     }
