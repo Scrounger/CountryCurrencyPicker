@@ -56,6 +56,17 @@ public class Currency implements Parcelable {
     public Integer getFlagId() {
         return flagId;
     }
+
+    private ArrayList<Country> countries;
+
+    @NonNull
+    public ArrayList<Country> getCountries() {
+        return countries;
+    }
+
+    public void setCountries(ArrayList<Country> countries) {
+        this.countries = countries;
+    }
     //endregion
 
     //region Constructor
@@ -156,6 +167,7 @@ public class Currency implements Parcelable {
         dest.writeString(this.name);
         dest.writeString(this.symbol);
         dest.writeValue(this.flagId);
+        dest.writeTypedList(this.countries);
     }
 
     protected Currency(Parcel in) {
@@ -163,6 +175,7 @@ public class Currency implements Parcelable {
         this.name = in.readString();
         this.symbol = in.readString();
         this.flagId = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.countries = in.createTypedArrayList(Country.CREATOR);
     }
 
     public static final Creator<Currency> CREATOR = new Creator<Currency>() {
