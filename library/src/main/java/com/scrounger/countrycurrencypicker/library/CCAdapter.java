@@ -14,34 +14,36 @@ import java.util.ArrayList;
 public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final String logTAG = CCAdapter.class.getName() + ".";
 
-    private ViewHolderItem mHolder;
-    private ArrayList<Country> mItemList;
+    private ViewHolderCountryItem mCountryHolder;
+    private ArrayList<Country> mCountryList;
+    private ArrayList<Currency> mCurrencyList;
     private Object mListener;
 
-    public CCAdapter(ArrayList<Country> mItemList, Object listener) {
-        this.mItemList = mItemList;
+    public CCAdapter(ArrayList<Country> countryList, ArrayList<Currency> currencyList, Object listener) {
+        this.mCountryList = countryList;
+        this.mCurrencyList = currencyList;
         this.mListener = listener;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row, parent, false);
-        return new ViewHolderItem(view);
+        return new ViewHolderCountryItem(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        mHolder = (ViewHolderItem) holder;
-        mHolder.setItem(mItemList.get(position));
+        mCountryHolder = (ViewHolderCountryItem) holder;
+        mCountryHolder.setItem(mCountryList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mItemList.size();
+        return mCountryList.size();
     }
 
-    public class ViewHolderItem extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final String logTAG = ViewHolderItem.class.getName() + ".";
+    public class ViewHolderCountryItem extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private final String logTAG = ViewHolderCountryItem.class.getName() + ".";
 
         //region Members
         private Country myItem;
@@ -51,7 +53,7 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private TextView txtCodeOrSymbol;
         //endregion
 
-        public ViewHolderItem(View parent) {
+        public ViewHolderCountryItem(View parent) {
             super(parent);
             itemView.setOnClickListener(this);
 

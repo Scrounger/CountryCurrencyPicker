@@ -139,17 +139,20 @@ public class CCPicker extends DialogFragment {
         }
     }
 
-    private void setRecyclerView(ArrayList<Country> ccItemArrayList) {
-        if (ccItemArrayList == null) {
-            mAdapter = new CCAdapter(new ArrayList<Country>(), mListener);
+    private void setRecyclerView(ArrayList<Country> countryList, ArrayList<Currency> currencyList) {
+        if (countryList == null && currencyList == null) {
+            mAdapter = new CCAdapter(new ArrayList<Country>(), new ArrayList<Currency>(), mListener);
         } else {
-            mAdapter = new CCAdapter(new ArrayList<>(ccItemArrayList), mListener);
+            mAdapter = new CCAdapter(countryList, currencyList, mListener);
         }
         mRecyclerView.setAdapter(mAdapter);
     }
     //endregion
 
-    private class FilterListAsync extends AsyncTask<String, Void, ArrayList<Country>> {
+    private class FilterListAsync extends AsyncTask<String, Void, Void> {
+        private ArrayList<Country> mCountryList = null;
+        private ArrayList<Currency> mCurrencyList = null;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -157,24 +160,24 @@ public class CCPicker extends DialogFragment {
         }
 
         @Override
-        protected ArrayList<Country> doInBackground(String... strings) {
-            ArrayList<Country> list = null;
+        protected Void doInBackground(String... strings) {
             for (String filterString : strings) {
 
                 if (mListener instanceof CountryPickerListener) {
-                    list = Country.listAll(getActivity(), filterString);
+                    mCountryList = Country.listAll(getActivity(), filterString);
                 } else if (mListener instanceof CountryAndCurrencyPickerListener) {
-                    list = Country.listAllWithCurrencies(getActivity(), filterString);
+                    mCountryList = Country.listAllWithCurrencies(getActivity(), filterString);
+                } else if (mListener instanceof CurrencyPickerListener) {
+                    mCurrencyList = Currency.listAll(getActivity(), filterString);
                 }
             }
-
-            return list;
+            return null;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Country> result) {
-            super.onPostExecute(result);
-            setRecyclerView(result);
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            setRecyclerView(mCountryList, mCurrencyList);
             progressBar.setVisibility(View.GONE);
         }
     }
