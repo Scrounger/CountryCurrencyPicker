@@ -84,9 +84,12 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if (myItem != null) {
                 if (myItem.getFlagId() != 0) {
                     flag.setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), myItem.getFlagId()));
+                } else {
+                    flag.setImageDrawable(null);
                 }
 
                 txtTitle.setText(myItem.getName());
+//                txtTitle.setText(myItem.getName() + " (" + myItem.getCode() + ")");
 
                 if (mListener instanceof CountryPickerListener) {
                     txtCodeOrSymbol.setText(myItem.getCode());
@@ -134,12 +137,14 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if (myItem != null) {
                 if (myItem.getFlagId() != 0) {
                     flag.setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), myItem.getFlagId()));
+                } else {
+                    flag.setImageDrawable(null);
                 }
 
                 txtTitle.setText(myItem.getName());
 
                 if (mListener instanceof CurrencyPickerListener) {
-                    txtCodeOrSymbol.setText(myItem.getSymbol());
+                    txtCodeOrSymbol.setText(myItem.getCode());
                     txtSubTitle.setVisibility(View.GONE);
                 } else if (mListener instanceof CountryAndCurrencyPickerListener) {
 //                    txtSubTitle.setText(myItem.getCurrency().getName());
