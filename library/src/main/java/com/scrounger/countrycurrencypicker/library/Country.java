@@ -65,7 +65,7 @@ public class Country implements Parcelable {
     //endregion
 
     //region Constructor
-    public Country(String code, String name, Integer flagId) {
+    public Country(String code, String name, @DrawableRes Integer flagId) {
         this.code = code;
         this.name = name;
         this.flagId = flagId;
