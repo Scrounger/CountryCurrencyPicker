@@ -85,7 +85,7 @@ public class Country implements Parcelable {
     public static Country getCountryWithCurrency(String countryCode, Context context) {
         Country country = getCountry(countryCode, context);
 
-        Currency currency = Currency.getCurrency(countryCode);
+        Currency currency = Currency.getCurrency(countryCode, context);
         if (currency != null) {
             //z.B. Antarktis is null -> keine Währung
             country.setCurrency(currency);

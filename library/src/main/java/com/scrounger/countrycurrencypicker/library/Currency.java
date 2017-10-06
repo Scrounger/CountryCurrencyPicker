@@ -67,15 +67,11 @@ public class Currency implements Parcelable {
     public void setCountries(ArrayList<Country> countries) {
         this.countries = countries;
     }
+
+
     //endregion
 
     //region Constructor
-    public Currency(String code, String name, String symbol) {
-        this.code = code;
-        this.name = name;
-        this.symbol = symbol;
-    }
-
     public Currency(String code, String name, String symbol, @DrawableRes Integer flagId) {
         this.code = code;
         this.name = name;
@@ -83,10 +79,18 @@ public class Currency implements Parcelable {
         this.flagId = flagId;
     }
 
+    public Currency(String code, String name, String symbol, Integer flagId, ArrayList<Country> countries) {
+        this.code = code;
+        this.name = name;
+        this.symbol = symbol;
+        this.flagId = flagId;
+        this.countries = countries;
+    }
+
     //endregion
 
     //region Retrieve
-    public static Currency getCurrency(String countryCode) {
+    public static Currency getCurrency(String countryCode, Context context) {
         Locale locale = new Locale("", countryCode);
         java.util.Currency currency = java.util.Currency.getInstance(locale);
 
@@ -94,7 +98,8 @@ public class Currency implements Parcelable {
             return new Currency(
                     currency.getCurrencyCode(),
                     currency.getDisplayName(),
-                    currency.getSymbol());
+                    currency.getSymbol(),
+                    getFlagDrawableId(currency.getCurrencyCode(), context));
         }
         return null;
     }
@@ -107,6 +112,26 @@ public class Currency implements Parcelable {
                 getFlagDrawableId(currency.getCurrencyCode(), context));
     }
 
+    private static ArrayList<Country> tmpCountries;
+
+    public static Currency getCurrencyWithCountries(java.util.Currency currency, Context context) {
+        final Currency myCurrency = getCurrency(currency, context);
+
+        if (tmpCountries == null) {
+            tmpCountries = Country.listAllWithCurrencies(context, null);
+        }
+
+        myCurrency.setCountries(new ArrayList<>(Collections2.filter(tmpCountries, new Predicate<Country>() {
+            @Override
+            public boolean apply(Country input) {
+                return input.getCurrency().getCode().equals(myCurrency.getCode());
+            }
+        })));
+
+        return myCurrency;
+    }
+
+
     public static ArrayList<Currency> listAll(Context context, final String filter) {
         ArrayList<Currency> list = new ArrayList<>();
 
@@ -116,6 +141,29 @@ public class Currency implements Parcelable {
 
         sortList(list);
 
+        if (filter != null && filter.length() > 0) {
+            return new ArrayList<>(Collections2.filter(list, new Predicate<Currency>() {
+                @Override
+                public boolean apply(Currency input) {
+                    return input.getName().toLowerCase().contains(filter.toLowerCase()) ||
+                            input.getSymbol().toLowerCase().contains(filter.toLowerCase());
+                }
+            }));
+        } else {
+            return list;
+        }
+    }
+
+    public static ArrayList<Currency> listAllWithCountries(Context context, final String filter) {
+        ArrayList<Currency> list = new ArrayList<>();
+
+        for (java.util.Currency currency : java.util.Currency.getAvailableCurrencies()) {
+            list.add(getCurrency(currency, context));
+        }
+
+        sortList(list);
+
+        //TODO: filter mit Countries
         if (filter != null && filter.length() > 0) {
             return new ArrayList<>(Collections2.filter(list, new Predicate<Currency>() {
                 @Override
