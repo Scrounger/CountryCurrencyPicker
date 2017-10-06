@@ -1,13 +1,13 @@
 <resources>
-    <string name="app_name">Country Currency Picker Sample</string>
-    <string name="menu_country">Country Picker Fragment</string>
-    <string name="menu_country_dialog">Country Picker Dialog</string>
-    <string name="menu_country_currency">Country And Currency Picker Fragment</string>
-    <string name="menu_country_currency_dialog">Country And Currency Picker Dialog</string>
+    <string name="app_name">Country Currency Sample</string>
+    <string name="menu_country">Country Fragment</string>
+    <string name="menu_country_dialog">Country Dialog</string>
+    <string name="menu_country_currency">Country &amp; Currency Fragment</string>
+    <string name="menu_country_currency_dialog">Country &amp; Currency Dialog</string>
 
-    <string name="menu_currency">Currency Picker Fragment</string>
-    <string name="menu_currency_dialog">Currency Picker Dialog</string>
-    <string name="menu_currency_countries">Currency And Countries Picker Fragment</string>
-    <string name="menu_currency_countries_dialog">Currency And Countries Picker Dialog</string>
+    <string name="menu_currency">Currency Fragment</string>
+    <string name="menu_currency_dialog">Currency Dialog</string>
+    <string name="menu_currency_countries">Currency &amp; Countries Fragment</string>
+    <string name="menu_currency_countries_dialog">Currency &amp; Countries Dialog</string>
 
 </resources>
