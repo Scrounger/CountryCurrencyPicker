@@ -15,6 +15,7 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final String logTAG = CCAdapter.class.getName() + ".";
 
     private ViewHolderCountryItem mCountryHolder;
+    private ViewHolderCurrencyItem mCurrencyHolder;
     private ArrayList<Country> mCountryList;
     private ArrayList<Currency> mCurrencyList;
     private Object mListener;
@@ -27,19 +28,33 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row, parent, false);
-        return new ViewHolderCountryItem(view);
+        if (mCountryList != null) {
+            final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row, parent, false);
+            return new ViewHolderCountryItem(view);
+        } else {
+            final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row, parent, false);
+            return new ViewHolderCurrencyItem(view);
+        }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        mCountryHolder = (ViewHolderCountryItem) holder;
-        mCountryHolder.setItem(mCountryList.get(position));
+        if (mCountryList != null) {
+            mCountryHolder = (ViewHolderCountryItem) holder;
+            mCountryHolder.setItem(mCountryList.get(position));
+        } else {
+            mCurrencyHolder = (ViewHolderCurrencyItem) holder;
+            mCurrencyHolder.setItem(mCurrencyList.get(position));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mCountryList.size();
+        if (mCountryList != null) {
+            return mCountryList.size();
+        } else {
+            return mCurrencyList.size();
+        }
     }
 
     public class ViewHolderCountryItem extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -48,8 +63,8 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         //region Members
         private Country myItem;
         private ImageView flag;
-        private TextView txtCountry;
-        private TextView txtCurrency;
+        private TextView txtTitle;
+        private TextView txtSubTitle;
         private TextView txtCodeOrSymbol;
         //endregion
 
@@ -58,8 +73,8 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             itemView.setOnClickListener(this);
 
             flag = (ImageView) itemView.findViewById(R.id.flag);
-            txtCountry = (TextView) itemView.findViewById(R.id.countryName);
-            txtCurrency = (TextView) itemView.findViewById(R.id.currencyName);
+            txtTitle = (TextView) itemView.findViewById(R.id.title);
+            txtSubTitle = (TextView) itemView.findViewById(R.id.subtitle);
             txtCodeOrSymbol = (TextView) itemView.findViewById(R.id.code_or_symbol);
         }
 
@@ -71,13 +86,13 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     flag.setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), myItem.getFlagId()));
                 }
 
-                txtCountry.setText(myItem.getName());
+                txtTitle.setText(myItem.getName());
 
                 if (mListener instanceof CountryPickerListener) {
                     txtCodeOrSymbol.setText(myItem.getCode());
-                    txtCurrency.setVisibility(View.GONE);
+                    txtSubTitle.setVisibility(View.GONE);
                 } else if (mListener instanceof CountryAndCurrencyPickerListener) {
-                    txtCurrency.setText(myItem.getCurrency().getName());
+                    txtSubTitle.setText(myItem.getCurrency().getName());
                     txtCodeOrSymbol.setText(myItem.getCurrency().getSymbol());
                 }
             }
@@ -89,6 +104,56 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 ((CountryPickerListener) mListener).onSelect(myItem);
             } else if (mListener instanceof CountryAndCurrencyPickerListener) {
                 ((CountryAndCurrencyPickerListener) mListener).onSelect(myItem, myItem.getCurrency());
+            }
+        }
+    }
+
+    public class ViewHolderCurrencyItem extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        //region Members
+        private Currency myItem;
+        private ImageView flag;
+        private TextView txtTitle;
+        private TextView txtSubTitle;
+        private TextView txtCodeOrSymbol;
+        //endregion
+
+        public ViewHolderCurrencyItem(View parent) {
+            super(parent);
+            itemView.setOnClickListener(this);
+
+            flag = (ImageView) itemView.findViewById(R.id.flag);
+            txtTitle = (TextView) itemView.findViewById(R.id.title);
+            txtSubTitle = (TextView) itemView.findViewById(R.id.subtitle);
+            txtCodeOrSymbol = (TextView) itemView.findViewById(R.id.code_or_symbol);
+        }
+
+        public void setItem(Currency item) {
+            myItem = item;
+
+            if (myItem != null) {
+                if (myItem.getFlagId() != 0) {
+                    flag.setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), myItem.getFlagId()));
+                }
+
+                txtTitle.setText(myItem.getName());
+
+                if (mListener instanceof CurrencyPickerListener) {
+                    txtCodeOrSymbol.setText(myItem.getSymbol());
+                    txtSubTitle.setVisibility(View.GONE);
+                } else if (mListener instanceof CountryAndCurrencyPickerListener) {
+//                    txtSubTitle.setText(myItem.getCurrency().getName());
+//                    txtCodeOrSymbol.setText(myItem.getCurrency().getSymbol());
+                }
+            }
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (mListener instanceof CurrencyPickerListener) {
+                ((CurrencyPickerListener) mListener).onSelect(myItem);
+            } else if (mListener instanceof CountryAndCurrencyPickerListener) {
+//                ((CurrencyAndCountryPickerListener) mListener).onSelect(myItem, myItem.getCurrency());
             }
         }
     }

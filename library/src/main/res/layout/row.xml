@@ -18,12 +18,12 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/countryName"
-            style="@style/ccPicker_row_item_txt_countryName" />
+            android:id="@+id/title"
+            style="@style/ccPicker_row_item_txt_title" />
 
         <TextView
-            android:id="@+id/currencyName"
-            style="@style/ccPicker_row_item_txt_currencyName" />
+            android:id="@+id/subtitle"
+            style="@style/ccPicker_row_item_txt_subtitle" />
     </LinearLayout>
 
     <TextView

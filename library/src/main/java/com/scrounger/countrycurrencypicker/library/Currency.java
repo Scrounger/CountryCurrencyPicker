@@ -109,7 +109,8 @@ public class Currency implements Parcelable {
             return new ArrayList<>(Collections2.filter(list, new Predicate<Currency>() {
                 @Override
                 public boolean apply(Currency input) {
-                    return input.getName().toLowerCase().contains(filter.toLowerCase());
+                    return input.getName().toLowerCase().contains(filter.toLowerCase()) ||
+                            input.getSymbol().toLowerCase().contains(filter.toLowerCase());
                 }
             }));
         } else {
