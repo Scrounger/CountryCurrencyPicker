@@ -16,7 +16,7 @@
     </style>
 
     <style name="ccPicker_row_item_txt_container">
-        <!--Style for container with countryName and currencyName-->
+        <!--Style for container with title and subTitle-->
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginEnd">10dp</item>
     </style>
