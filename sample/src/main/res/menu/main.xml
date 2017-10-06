@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Activties.MainActivity">
+    <item
+        android:id="@+id/action_country"
+        android:title="@string/menu_country"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_country_dialog"
+        android:title="@string/menu_country_dialog"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_country_currency"
+        android:title="@string/menu_country_currency"
+        app:showAsAction="never" />
+</menu>

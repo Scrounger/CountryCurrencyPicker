@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Country Currency Picker Sample</string>
+    <string name="menu_country">Country Picker Fragment</string>
+    <string name="menu_country_dialog">Country Picker Dialog</string>
+    <string name="menu_country_currency">Country And Currency Picker Fragment</string>
 </resources>

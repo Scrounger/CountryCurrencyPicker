@@ -16,9 +16,9 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ViewHolderItem mHolder;
     private ArrayList<Country> mItemList;
-    private CCPickerListener mListener;
+    private Object mListener;
 
-    public CCAdapter(ArrayList<Country> mItemList, CCPickerListener listener) {
+    public CCAdapter(ArrayList<Country> mItemList, Object listener) {
         this.mItemList = mItemList;
         this.mListener = listener;
     }
@@ -44,11 +44,11 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private final String logTAG = ViewHolderItem.class.getName() + ".";
 
         //region Members
-        private Country myCCItem;
+        private Country myItem;
         private ImageView flag;
         private TextView txtCountry;
         private TextView txtCurrency;
-        private TextView txtCurrencySymbol;
+        private TextView txtCodeOrSymbol;
         //endregion
 
         public ViewHolderItem(View parent) {
@@ -58,26 +58,36 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             flag = (ImageView) itemView.findViewById(R.id.flag);
             txtCountry = (TextView) itemView.findViewById(R.id.countryName);
             txtCurrency = (TextView) itemView.findViewById(R.id.currencyName);
-            txtCurrencySymbol = (TextView) itemView.findViewById(R.id.currencySymbol);
+            txtCodeOrSymbol = (TextView) itemView.findViewById(R.id.code_or_symbol);
         }
 
         public void setItem(Country item) {
-            myCCItem = item;
+            myItem = item;
 
-            if (myCCItem != null) {
-                if (myCCItem.getFlagId() != 0) {
-                    flag.setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), myCCItem.getFlagId()));
+            if (myItem != null) {
+                if (myItem.getFlagId() != 0) {
+                    flag.setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), myItem.getFlagId()));
                 }
 
-                txtCountry.setText(myCCItem.getName() + " (" + myCCItem.getCode() + ")");
-                txtCurrency.setText(myCCItem.getCurrency().getName());
-                txtCurrencySymbol.setText(myCCItem.getCurrency().getSymbol());
+                txtCountry.setText(myItem.getName());
+
+                if (mListener instanceof CountryPickerListener) {
+                    txtCodeOrSymbol.setText(myItem.getCode());
+                    txtCurrency.setVisibility(View.GONE);
+                } else if (mListener instanceof CountryAndCurrencyPickerListener) {
+                    txtCurrency.setText(myItem.getCurrency().getName());
+                    txtCodeOrSymbol.setText(myItem.getCurrency().getSymbol());
+                }
             }
         }
 
         @Override
         public void onClick(View view) {
-            mListener.onSelect(myCCItem.getName(), myCCItem.getCode(), myCCItem.getCurrency().getCode(), myCCItem.getCurrency().getName(), myCCItem.getCurrency().getSymbol());
+            if (mListener instanceof CountryPickerListener) {
+                ((CountryPickerListener) mListener).onSelect(myItem);
+            } else if (mListener instanceof CountryAndCurrencyPickerListener) {
+                ((CountryAndCurrencyPickerListener) mListener).onSelect(myItem, myItem.getCurrency());
+            }
         }
     }
 }

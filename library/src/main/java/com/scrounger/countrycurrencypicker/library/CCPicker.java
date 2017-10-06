@@ -27,7 +27,7 @@ public class CCPicker extends DialogFragment {
     //region Member
     private View myView;
 
-    private CCPickerListener mListener;
+    private Object mListener;
 
     private EditText txtSearch;
     private ProgressBar progressBar;
@@ -42,7 +42,13 @@ public class CCPicker extends DialogFragment {
     public CCPicker() {
     }
 
-    public static CCPicker newInstance(CCPickerListener listener) {
+    public static CCPicker newInstance(CountryPickerListener listener) {
+        CCPicker picker = new CCPicker();
+        picker.mListener = listener;
+        return picker;
+    }
+
+    public static CCPicker newInstance(CountryAndCurrencyPickerListener listener) {
         CCPicker picker = new CCPicker();
         picker.mListener = listener;
         return picker;
@@ -148,7 +154,12 @@ public class CCPicker extends DialogFragment {
         protected ArrayList<Country> doInBackground(String... strings) {
             ArrayList<Country> list = null;
             for (String filterString : strings) {
-                list = Country.listAllWithCurrencies(getActivity(), filterString);
+
+                if (mListener instanceof CountryPickerListener) {
+                    list = Country.listAll(getActivity(), filterString);
+                } else if (mListener instanceof CountryAndCurrencyPickerListener) {
+                    list = Country.listAllWithCurrencies(getActivity(), filterString);
+                }
             }
 
             return list;

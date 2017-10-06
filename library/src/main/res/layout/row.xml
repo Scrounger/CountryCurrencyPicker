@@ -27,7 +27,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/currencySymbol"
-        style="@style/ccPicker_row_item_txt_currencySymbol" />
+        android:id="@+id/code_or_symbol"
+        style="@style/ccPicker_row_item_txt_code_or_symbol" />
 
 </LinearLayout>
