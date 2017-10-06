@@ -168,19 +168,19 @@ public class Currency implements Parcelable {
         }
 
         sortList(list);
-        
+
         if (filter != null && filter.length() > 0) {
             return new ArrayList<>(Collections2.filter(list, new Predicate<Currency>() {
                 @Override
                 public boolean apply(Currency input) {
                     return input.getName().toLowerCase().contains(filter.toLowerCase()) ||
                             input.getSymbol().toLowerCase().contains(filter.toLowerCase()) ||
-                            Iterables.indexOf(input.getCountries(), new Predicate<Country>() {
+                            Iterables.any(input.getCountries(), new Predicate<Country>() {
                                 @Override
                                 public boolean apply(Country input) {
                                     return input.getName().toLowerCase().contains(filter.toLowerCase());
                                 }
-                            }) > 0;
+                            });
                 }
             }));
         } else {
