@@ -16,12 +16,10 @@ CountryCurrencyPicker is an android picker library for country and / or currency
   <img src="/Screenshots/search.png" width="250"/>
 </p>
 
-## How to use
-
-### Requirements
+## Requirements
 min. Android API 19 (KitKat)
 
-### Integration
+## Integration
 
 Step 1\. Add the JitPack repository to your build file. Add it in your root build.gradle at the end of repositories:
 
@@ -42,7 +40,7 @@ dependencies {
 }
 ```
 
-### How to use
+## How to use
 The library provides 4 different listener that defines which picker will start
 #### 1\. Country
 
@@ -110,7 +108,7 @@ picker.show(getSupportFragmentManager(), CountryCurrencyPicker.DIALOG_NAME);
 
 For more examples take a look into [MainActivity.java](/sample/src/main/java/com/scrounger/countrycurrencypicker/sample/MainActivity.java#L52)
 
-### Customization
+## Customization
 To customize the style you can override the [layout files](/library/src/main/res/layout) or just override the [styles of library](/library/src/main/res/values/styles.xml) in your project
 ```java
 <resources>
