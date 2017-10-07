@@ -79,7 +79,7 @@ new CurrencyAndCountriesPickerListener()
 ```java
 getSupportFragmentManager().beginTransaction()
     .replace(R.id.container,
-        CountryCurrencyPicker.newInstance(new CountryAndCurrenciesPickerListener() {
+        CountryCurrencyPicker.newInstance(<b>new CountryAndCurrenciesPickerListener()</b> {
             @Override
             public void onSelect(Country country, Currency currency) {
                 Toast.makeText(MainActivity.this,
