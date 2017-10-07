@@ -11,6 +11,9 @@ CountryCurrencyPicker is an android picker library for country and / or currency
 
 ## How to use
 
+### Requirements
+min. Android API 19 (KitKat)
+
 ### Integration
 
 Step 1\. Add the JitPack repository to your build file. Add it in your root build.gradle at the end of repositories:
