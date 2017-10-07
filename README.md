@@ -44,14 +44,14 @@ dependencies {
 
 ### How to use
 The library provides 4 different listener that defines which picker will start
-#### 1\. Country
+##### 1\. Country
 
 Showing all available countries in local language, searching only for country names is possible
 
 ```java
 new CountryPickerListener()
 ```
-#### 2\. Country and Currency
+##### 2\. Country and Currency
 
 Showing all available countries with their currency in local language, searching for country names, currency names and currency symbols is possible
 
@@ -59,7 +59,7 @@ Showing all available countries with their currency in local language, searching
 new CountryAndCurrenciesPickerListener()
 ```
 
-#### 3\. Currency
+##### 3\. Currency
 
 Showing all available currencies in local language, searching only for currency names and currency symbols is possible
 
@@ -67,7 +67,7 @@ Showing all available currencies in local language, searching only for currency 
 new CurrencyPickerListener()
 ```
 
-#### 2\. Currency and Country
+##### 4\. Currency and Country
 
 Showing all available currencies with their countries in local language, searching for currency names, currency symbols and countries is possible
 
