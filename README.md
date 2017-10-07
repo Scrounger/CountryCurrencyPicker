@@ -107,4 +107,4 @@ new CurrencyAndCountriesPickerListener()
             picker.show(getSupportFragmentManager(), CountryCurrencyPicker.DIALOG_NAME);
 ```
 
-for more examples look into [MainActivity.java](/blob/master/sample/src/main/java/com/scrounger/countrycurrencypicker/sample/MainActivity.java#L52)
+for more examples look into [MainActivity.java](/sample/src/main/java/com/scrounger/countrycurrencypicker/sample/MainActivity.java#L52)
