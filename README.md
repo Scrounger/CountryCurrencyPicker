@@ -77,34 +77,35 @@ new CurrencyAndCountriesPickerListener()
 
 #### use as fragment (embed in your own activity)
 ```java
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container,
-                            CountryCurrencyPicker.newInstance(new CountryAndCurrenciesPickerListener() {
-                                @Override
-                                public void onSelect(Country country, Currency currency) {
-                                    Toast.makeText(MainActivity.this,
-                                            String.format("name: %s\ncurrencySymbol: %s", country.getName(), currency.getSymbol())
-                                            , Toast.LENGTH_SHORT).show();
-                                }
-                            }))
-                    .commit();
+getSupportFragmentManager().beginTransaction()
+    .replace(R.id.container,
+        CountryCurrencyPicker.newInstance(new CountryAndCurrenciesPickerListener() {
+            @Override
+            public void onSelect(Country country, Currency currency) {
+                Toast.makeText(MainActivity.this,
+                    String.format("name: %s\ncurrencySymbol: %s", country.getName(), currency.getSymbol())
+                    , Toast.LENGTH_SHORT).show();
+            }
+        }))
+    .commit();
 ```
 
 #### use as dialog
 ```java
-            CountryCurrencyPicker picker = CountryCurrencyPicker.newInstance(new CountryAndCurrenciesPickerListener() {
-                @Override
-                public void onSelect(Country country, Currency currency) {
-                    Toast.makeText(MainActivity.this,
-                            String.format("name: %s\ncurrencySymbol: %s", country.getName(), currency.getSymbol())
-                            , Toast.LENGTH_SHORT).show();
+CountryCurrencyPicker picker = CountryCurrencyPicker.newInstance(new CountryAndCurrenciesPickerListener() {
+    @Override
+    public void onSelect(Country country, Currency currency) {
+        Toast.makeText(MainActivity.this,
+            String.format("name: %s\ncurrencySymbol: %s", country.getName(), currency.getSymbol())
+            , Toast.LENGTH_SHORT).show();
 
-                    DialogFragment dialogFragment =
-                            (DialogFragment) getSupportFragmentManager().findFragmentByTag(CountryCurrencyPicker.DIALOG_NAME);
-                    dialogFragment.dismiss();
-                }
-            });
-            picker.show(getSupportFragmentManager(), CountryCurrencyPicker.DIALOG_NAME);
+        DialogFragment dialogFragment =
+            (DialogFragment) getSupportFragmentManager().findFragmentByTag(CountryCurrencyPicker.DIALOG_NAME);
+        dialogFragment.dismiss();
+    }
+});
+
+picker.show(getSupportFragmentManager(), CountryCurrencyPicker.DIALOG_NAME);
 ```
 
 for more examples look into [MainActivity.java](/sample/src/main/java/com/scrounger/countrycurrencypicker/sample/MainActivity.java#L52)
