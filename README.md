@@ -44,14 +44,14 @@ dependencies {
 
 ### How to use
 The library provides 4 different listener that defines which picker will start
-##### 1\. Country
+#### 1\. Country
 
 Showing all available countries in local language, searching only for country names is possible
 
 ```java
 new CountryPickerListener()
 ```
-##### 2\. Country and Currency
+#### 2\. Country and Currency
 
 Showing all available countries with their currency in local language, searching for country names, currency names and currency symbols is possible
 
@@ -59,7 +59,7 @@ Showing all available countries with their currency in local language, searching
 new CountryAndCurrenciesPickerListener()
 ```
 
-##### 3\. Currency
+#### 3\. Currency
 
 Showing all available currencies in local language, searching only for currency names and currency symbols is possible
 
@@ -67,10 +67,42 @@ Showing all available currencies in local language, searching only for currency 
 new CurrencyPickerListener()
 ```
 
-##### 4\. Currency and Country
+#### 4\. Currency and Country
 
 Showing all available currencies with their countries in local language, searching for currency names, currency symbols and countries is possible
 
 ```java
 new CurrencyAndCountriesPickerListener()
+```
+
+#### use as fragment (embed in your own activity)
+```java
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container,
+                            CountryCurrencyPicker.newInstance(new CountryAndCurrenciesPickerListener() {
+                                @Override
+                                public void onSelect(Country country, Currency currency) {
+                                    Toast.makeText(MainActivity.this,
+                                            String.format("name: %s\ncurrencySymbol: %s", country.getName(), currency.getSymbol())
+                                            , Toast.LENGTH_SHORT).show();
+                                }
+                            }))
+                    .commit();
+```
+
+#### use as dialog
+```java
+            CountryCurrencyPicker picker = CountryCurrencyPicker.newInstance(new CountryAndCurrenciesPickerListener() {
+                @Override
+                public void onSelect(Country country, Currency currency) {
+                    Toast.makeText(MainActivity.this,
+                            String.format("name: %s\ncurrencySymbol: %s", country.getName(), currency.getSymbol())
+                            , Toast.LENGTH_SHORT).show();
+
+                    DialogFragment dialogFragment =
+                            (DialogFragment) getSupportFragmentManager().findFragmentByTag(CountryCurrencyPicker.DIALOG_NAME);
+                    dialogFragment.dismiss();
+                }
+            });
+            picker.show(getSupportFragmentManager(), CountryCurrencyPicker.DIALOG_NAME);
 ```
