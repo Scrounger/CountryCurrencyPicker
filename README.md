@@ -41,3 +41,16 @@ dependencies {
         compile 'com.github.scrounger:CountryCurrencyPicker:1.0.1'
 }
 ```
+
+### How to use
+The library provides 4 different listener that defines which picker will start
+1\. Country only
+(showing all available countries in local language, searching only for country names is possible)
+```java
+new CountryPickerListener()
+```
+2\. Country and Currency
+(showing all available countries with their currency in local language, searching for country names, currency names and currency symbols is possible)
+```java
+new CountryAndCurrenciesPickerListener()
+```
