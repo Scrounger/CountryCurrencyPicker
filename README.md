@@ -13,6 +13,8 @@ CountryCurrencyPicker is an android picker library for country and / or currency
   <img src="/Screenshots/Country%26Currency.png" width="250"/>
   <img src="/Screenshots/Currency.png" width="250"/>
   <img src="/Screenshots/Currency%26Country.png" width="250"/>
+  <img src="/Screenshots/dialog.png" width="250"/>
+  <img src="/Screenshots/search.png" width="250"/>
 </p>
 
 ![](https://raw.githubusercontent.com/Scrounger/CountryCurrencyPicker/master/Screenshots/Country.png)![](https://raw.githubusercontent.com/Scrounger/CountryCurrencyPicker/master/Screenshots/Country%26Currency.png)![](https://raw.githubusercontent.com/Scrounger/CountryCurrencyPicker/master/Screenshots/Currency.png)![](https://raw.githubusercontent.com/Scrounger/CountryCurrencyPicker/master/Screenshots/Currency%26Country.png)
