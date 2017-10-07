@@ -108,7 +108,7 @@ CountryCurrencyPicker picker = CountryCurrencyPicker.newInstance(new CountryAndC
 picker.show(getSupportFragmentManager(), CountryCurrencyPicker.DIALOG_NAME);
 ```
 
-for more examples look into [MainActivity.java](/sample/src/main/java/com/scrounger/countrycurrencypicker/sample/MainActivity.java#L52)
+For more examples take a look into [MainActivity.java](/sample/src/main/java/com/scrounger/countrycurrencypicker/sample/MainActivity.java#L52)
 
 ### Customization
 To customize the style you can override the [layout files](/library/src/main/res/layout) or just override the [styles of library](/library/src/main/res/values/styles.xml) in your project
