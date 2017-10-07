@@ -2,7 +2,7 @@
 
 # Country and Currency Picker for Android
 
- [![](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VT4V9FULB93JW)
+ [![](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VT4V9FULB93JW)
 
 CountryCurrencyPicker is an android picker library for country and / or currency. You can implement it as fragment or dialog. It offers the option to search for country values and / or currency values.
 <br />Inspired by [country-picker-android](https://github.com/mukeshsolanki/country-picker-android) and [currency-picker-android](https://github.com/midorikocak/currency-picker-android)
