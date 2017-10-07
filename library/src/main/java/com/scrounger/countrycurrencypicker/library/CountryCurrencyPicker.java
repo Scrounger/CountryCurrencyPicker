@@ -92,7 +92,7 @@ public class CountryCurrencyPicker extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.fragment, container, false);
+        myView = inflater.inflate(R.layout.countrycurrencypicker_fragment, container, false);
 
         return myView;
     }

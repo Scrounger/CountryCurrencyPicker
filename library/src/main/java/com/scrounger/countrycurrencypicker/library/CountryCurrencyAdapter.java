@@ -45,10 +45,10 @@ public class CountryCurrencyAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (mCountryList != null) {
-            final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row, parent, false);
+            final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.countrycurrencypicker_row, parent, false);
             return new ViewHolderCountryItem(view);
         } else {
-            final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row, parent, false);
+            final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.countrycurrencypicker_row, parent, false);
             return new ViewHolderCurrencyItem(view);
         }
     }

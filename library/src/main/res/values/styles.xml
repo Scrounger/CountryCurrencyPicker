@@ -15,7 +15,7 @@
 
 <resources>
 
-    <!-- Styles for recyclerView row-->
+    <!-- Styles for recyclerView countrycurrencypicker_row-->
     <style name="ccPicker_row_item_container">
         <item name="android:paddingBottom">2dp</item>
         <item name="android:paddingTop">2dp</item>
