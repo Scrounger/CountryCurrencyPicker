@@ -12,8 +12,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private final String logTAG = CCAdapter.class.getName() + ".";
+public class CountryCurrencyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private final String logTAG = CountryCurrencyAdapter.class.getName() + ".";
 
     private ViewHolderCountryItem mCountryHolder;
     private ViewHolderCurrencyItem mCurrencyHolder;
@@ -21,7 +21,7 @@ public class CCAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<Currency> mCurrencyList;
     private Object mListener;
 
-    public CCAdapter(ArrayList<Country> countryList, ArrayList<Currency> currencyList, Object listener) {
+    public CountryCurrencyAdapter(ArrayList<Country> countryList, ArrayList<Currency> currencyList, Object listener) {
         this.mCountryList = countryList;
         this.mCurrencyList = currencyList;
         this.mListener = listener;

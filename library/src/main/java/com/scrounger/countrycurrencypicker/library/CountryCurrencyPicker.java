@@ -20,9 +20,9 @@ import android.widget.ProgressBar;
 import java.util.ArrayList;
 
 
-public class CCPicker extends DialogFragment {
-    private final static String logTAG = CCPicker.class.getName() + ".";
-    public static final String DIALOG_NAME = CCPicker.class.getName();
+public class CountryCurrencyPicker extends DialogFragment {
+    private final static String logTAG = CountryCurrencyPicker.class.getName() + ".";
+    public static final String DIALOG_NAME = CountryCurrencyPicker.class.getName();
 
     //region Member
     private View myView;
@@ -33,35 +33,35 @@ public class CCPicker extends DialogFragment {
     private ProgressBar progressBar;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
-    private CCAdapter mAdapter;
+    private CountryCurrencyAdapter mAdapter;
 
     private FilterListAsync filterListAsync;
     //endregion
 
     //region Constructor
-    public CCPicker() {
+    public CountryCurrencyPicker() {
     }
 
-    public static CCPicker newInstance(CountryPickerListener listener) {
-        CCPicker picker = new CCPicker();
+    public static CountryCurrencyPicker newInstance(CountryPickerListener listener) {
+        CountryCurrencyPicker picker = new CountryCurrencyPicker();
         picker.mListener = listener;
         return picker;
     }
 
-    public static CCPicker newInstance(CountryAndCurrenciesPickerListener listener) {
-        CCPicker picker = new CCPicker();
+    public static CountryCurrencyPicker newInstance(CountryAndCurrenciesPickerListener listener) {
+        CountryCurrencyPicker picker = new CountryCurrencyPicker();
         picker.mListener = listener;
         return picker;
     }
 
-    public static CCPicker newInstance(CurrencyPickerListener listener) {
-        CCPicker picker = new CCPicker();
+    public static CountryCurrencyPicker newInstance(CurrencyPickerListener listener) {
+        CountryCurrencyPicker picker = new CountryCurrencyPicker();
         picker.mListener = listener;
         return picker;
     }
 
-    public static CCPicker newInstance(CurrencyAndCountriesPickerListener listener) {
-        CCPicker picker = new CCPicker();
+    public static CountryCurrencyPicker newInstance(CurrencyAndCountriesPickerListener listener) {
+        CountryCurrencyPicker picker = new CountryCurrencyPicker();
         picker.mListener = listener;
         return picker;
     }
@@ -147,9 +147,9 @@ public class CCPicker extends DialogFragment {
 
     private void setRecyclerView(ArrayList<Country> countryList, ArrayList<Currency> currencyList) {
         if (countryList == null && currencyList == null) {
-            mAdapter = new CCAdapter(new ArrayList<Country>(), new ArrayList<Currency>(), mListener);
+            mAdapter = new CountryCurrencyAdapter(new ArrayList<Country>(), new ArrayList<Currency>(), mListener);
         } else {
-            mAdapter = new CCAdapter(countryList, currencyList, mListener);
+            mAdapter = new CountryCurrencyAdapter(countryList, currencyList, mListener);
         }
         mRecyclerView.setAdapter(mAdapter);
     }
