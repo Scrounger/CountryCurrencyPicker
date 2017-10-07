@@ -7,9 +7,10 @@
 CountryCurrencyPicker is an android picker library for country and / or currency. You can implement it as fragment or dialog. It offers the option to search for country values and / or currency values.
 <br />Inspired by [country-picker-android](https://github.com/mukeshsolanki/country-picker-android) and [currency-picker-android](https://github.com/midorikocak/currency-picker-android)
 
+<a href="https://raw.githubusercontent.com/Scrounger/CountryCurrencyPicker/master/Screenshots/Currency.png">
 
 <p align="center">
-  <img src="/Screenshots/country.png" width="250" title="Ich bin ein Bild."/>
+  <img src="/Screenshots/country.png" width="250"/>
   <img src="/Screenshots/Country%26Currency.png" width="250"/>
   <img src="/Screenshots/Currency.png" width="250"/>
   <img src="/Screenshots/Currency%26Country.png" width="250"/>
