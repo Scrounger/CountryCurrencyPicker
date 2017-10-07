@@ -9,7 +9,7 @@ CountryCurrencyPicker is an android picker library for country and / or currency
 
 
 <p align="center">
-  <img src="/Screenshots/country.png" width="250" alt="HTML tutorial"/>
+  <img src="/Screenshots/country.png" width="250" title="Ich bin ein Bild."/>
   <img src="/Screenshots/Country%26Currency.png" width="250"/>
   <img src="/Screenshots/Currency.png" width="250"/>
   <img src="/Screenshots/Currency%26Country.png" width="250"/>
