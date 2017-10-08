@@ -114,7 +114,7 @@ To customize the style you can override the [layout files](/library/src/main/res
 <resources>
 
     <!-- Styles for recyclerView countrycurrencypicker_row-->
-    <style name="ccPicker_row_item_container">
+    <style name="countryCurrencyPicker_row_item_container">
         <item name="android:paddingBottom">2dp</item>
         <item name="android:paddingTop">2dp</item>
         <item name="android:paddingStart">8dp</item>
@@ -123,18 +123,18 @@ To customize the style you can override the [layout files](/library/src/main/res
 
     </style>
 
-    <style name="ccPicker_row_item_icon_flag">
+    <style name="countryCurrencyPicker_row_item_icon_flag">
         <item name="android:layout_width">48dp</item>
         <item name="android:layout_height">48dp</item>
     </style>
 
-    <style name="ccPicker_row_item_txt_container">
+    <style name="countryCurrencyPicker_row_item_txt_container">
         <!--Style for container with title and subTitle-->
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginEnd">10dp</item>
     </style>
 
-    <style name="ccPicker_row_item_txt_title">
+    <style name="countryCurrencyPicker_row_item_txt_title">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:maxLines">1</item>
@@ -144,7 +144,7 @@ To customize the style you can override the [layout files](/library/src/main/res
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
     </style>
 
-    <style name="ccPicker_row_item_txt_subtitle">
+    <style name="countryCurrencyPicker_row_item_txt_subtitle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:ellipsize">end</item>
@@ -153,7 +153,7 @@ To customize the style you can override the [layout files](/library/src/main/res
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
     </style>
 
-    <style name="ccPicker_row_item_txt_code_or_symbol">
+    <style name="countryCurrencyPicker_row_item_txt_code_or_symbol">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:maxLines">1</item>

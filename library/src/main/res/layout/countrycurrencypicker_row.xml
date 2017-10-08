@@ -15,7 +15,7 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/ccPicker_row_item_container"
+    style="@style/countryCurrencyPicker_row_item_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
@@ -23,10 +23,10 @@
 
     <ImageView
         android:id="@+id/flag"
-        style="@style/ccPicker_row_item_icon_flag" />
+        style="@style/countryCurrencyPicker_row_item_icon_flag" />
 
     <LinearLayout
-        style="@style/ccPicker_row_item_txt_container"
+        style="@style/countryCurrencyPicker_row_item_txt_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -34,15 +34,15 @@
 
         <TextView
             android:id="@+id/title"
-            style="@style/ccPicker_row_item_txt_title" />
+            style="@style/countryCurrencyPicker_row_item_txt_title" />
 
         <TextView
             android:id="@+id/subtitle"
-            style="@style/ccPicker_row_item_txt_subtitle" />
+            style="@style/countryCurrencyPicker_row_item_txt_subtitle" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/code_or_symbol"
-        style="@style/ccPicker_row_item_txt_code_or_symbol" />
+        style="@style/countryCurrencyPicker_row_item_txt_code_or_symbol" />
 
 </LinearLayout>
