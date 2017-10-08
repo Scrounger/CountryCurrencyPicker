@@ -25,7 +25,6 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -94,7 +93,6 @@ public class Currency implements Parcelable {
     public void setCountriesNames(ArrayList<String> countriesNames) {
         this.countriesNames = countriesNames;
     }
-
     //endregion
 
     //region Constructor
@@ -125,7 +123,7 @@ public class Currency implements Parcelable {
                     currency.getCurrencyCode(),
                     currency.getDisplayName(),
                     currency.getSymbol(),
-                    getFlagDrawableId(currency.getCurrencyCode(), context));
+                    Helper.getFlagDrawableId(currency.getCurrencyCode(), context));
         }
         return null;
     }
@@ -135,7 +133,7 @@ public class Currency implements Parcelable {
                 currency.getCurrencyCode(),
                 currency.getDisplayName(),
                 currency.getSymbol(),
-                getFlagDrawableId(currency.getCurrencyCode(), context));
+                Helper.getFlagDrawableId(currency.getCurrencyCode(), context));
     }
 
     private static ArrayList<Country> tmpCountries;
@@ -228,23 +226,12 @@ public class Currency implements Parcelable {
         Collections.sort(list, new Comparator<Currency>() {
             @Override
             public int compare(Currency ccItem, Currency ccItem2) {
-                return removeAccents(ccItem.getName()).toLowerCase().compareTo(removeAccents(ccItem2.getName()).toLowerCase());
+                return Helper.removeAccents(ccItem.getName()).toLowerCase().compareTo(Helper.removeAccents(ccItem2.getName()).toLowerCase());
             }
         });
     }
 
-    @NonNull
-    @DrawableRes
-    private static Integer getFlagDrawableId(String currencyCode, Context context) {
-        String drawableName = "flag_" + currencyCode.toLowerCase();
-        return context.getResources()
-                .getIdentifier(drawableName, "drawable", context.getPackageName());
-    }
 
-    private static String removeAccents(String str) {
-        return Normalizer.normalize(str, Normalizer.Form.NFD)
-                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
-    }
     //endregion
 
     //region Parcelable
@@ -260,14 +247,16 @@ public class Currency implements Parcelable {
         dest.writeString(this.symbol);
         dest.writeValue(this.flagId);
         dest.writeTypedList(this.countries);
+        dest.writeStringList(this.countriesNames);
     }
 
-    protected Currency(Parcel in) {
+    private Currency(Parcel in) {
         this.code = in.readString();
         this.name = in.readString();
         this.symbol = in.readString();
         this.flagId = (Integer) in.readValue(Integer.class.getClassLoader());
         this.countries = in.createTypedArrayList(Country.CREATOR);
+        this.countriesNames = in.createStringArrayList();
     }
 
     public static final Creator<Currency> CREATOR = new Creator<Currency>() {

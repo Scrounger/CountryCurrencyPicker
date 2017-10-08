@@ -25,7 +25,6 @@ import android.support.annotation.Nullable;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -77,6 +76,16 @@ public class Country implements Parcelable {
     public void setCurrency(Currency currency) {
         this.currency = currency;
     }
+
+    private Locale locale;
+
+    public Locale getLocale() {
+        if (locale == null) {
+            return new Locale("", code);
+        }
+
+        return locale;
+    }
     //endregion
 
     //region Constructor
@@ -93,7 +102,7 @@ public class Country implements Parcelable {
 
         return new Country(countryCode,
                 locale.getDisplayName(),
-                getFlagDrawableId(countryCode, context));
+                Helper.getFlagDrawableId(countryCode, context));
     }
 
     @Nullable
@@ -166,22 +175,9 @@ public class Country implements Parcelable {
         Collections.sort(list, new Comparator<Country>() {
             @Override
             public int compare(Country ccItem, Country ccItem2) {
-                return removeAccents(ccItem.getName()).toLowerCase().compareTo(removeAccents(ccItem2.getName()).toLowerCase());
+                return Helper.removeAccents(ccItem.getName()).toLowerCase().compareTo(Helper.removeAccents(ccItem2.getName()).toLowerCase());
             }
         });
-    }
-
-    @NonNull
-    @DrawableRes
-    private static Integer getFlagDrawableId(String countryCode, Context context) {
-        String drawableName = "flag_" + countryCode.toLowerCase();
-        return context.getResources()
-                .getIdentifier(drawableName, "drawable", context.getPackageName());
-    }
-
-    private static String removeAccents(String str) {
-        return Normalizer.normalize(str, Normalizer.Form.NFD)
-                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
     }
     //endregion
 
@@ -197,6 +193,7 @@ public class Country implements Parcelable {
         dest.writeString(this.name);
         dest.writeValue(this.flagId);
         dest.writeParcelable(this.currency, flags);
+        dest.writeSerializable(this.locale);
     }
 
     private Country(Parcel in) {
@@ -204,9 +201,10 @@ public class Country implements Parcelable {
         this.name = in.readString();
         this.flagId = (Integer) in.readValue(Integer.class.getClassLoader());
         this.currency = in.readParcelable(Currency.class.getClassLoader());
+        this.locale = (Locale) in.readSerializable();
     }
 
-    public static final Parcelable.Creator<Country> CREATOR = new Parcelable.Creator<Country>() {
+    public static final Creator<Country> CREATOR = new Creator<Country>() {
         @Override
         public Country createFromParcel(Parcel source) {
             return new Country(source);
