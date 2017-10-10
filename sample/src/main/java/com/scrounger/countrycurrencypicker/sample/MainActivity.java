@@ -25,11 +25,11 @@ import android.widget.Toast;
 
 import com.scrounger.countrycurrencypicker.library.CountryCurrencyPicker;
 import com.scrounger.countrycurrencypicker.library.Country;
-import com.scrounger.countrycurrencypicker.library.CountryAndCurrenciesPickerListener;
-import com.scrounger.countrycurrencypicker.library.CountryPickerListener;
+import com.scrounger.countrycurrencypicker.library.Listener.CountryAndCurrenciesPickerListener;
+import com.scrounger.countrycurrencypicker.library.Listener.CountryPickerListener;
 import com.scrounger.countrycurrencypicker.library.Currency;
-import com.scrounger.countrycurrencypicker.library.CurrencyAndCountriesPickerListener;
-import com.scrounger.countrycurrencypicker.library.CurrencyPickerListener;
+import com.scrounger.countrycurrencypicker.library.Listener.CurrencyAndCountriesPickerListener;
+import com.scrounger.countrycurrencypicker.library.Listener.CurrencyPickerListener;
 
 import java.util.ArrayList;
 

@@ -13,8 +13,10 @@
  * limitations under the License.
  */
 
-package com.scrounger.countrycurrencypicker.library;
+package com.scrounger.countrycurrencypicker.library.Listener;
 
-public interface CurrencyPickerListener {
-    void onSelect(Currency currency);
+import com.scrounger.countrycurrencypicker.library.Country;
+
+public interface CountryPickerListener {
+    void onSelect(Country country);
 }
