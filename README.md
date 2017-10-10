@@ -36,7 +36,7 @@ Step 2\. Add the dependency
 
 ```java
 dependencies {
-        compile 'com.github.scrounger:CountryCurrencyPicker:1.0.3'
+        compile 'com.github.scrounger:countrycurrencypicker:1.0.4'
 }
 ```
 
@@ -75,35 +75,40 @@ new CurrencyAndCountriesPickerListener()
 
 #### use as fragment (embed in your own activity)
 ```java
-getSupportFragmentManager().beginTransaction()
-    .replace(R.id.container,
-        CountryCurrencyPicker.newInstance(new CountryAndCurrenciesPickerListener() {
-            @Override
-            public void onSelect(Country country, Currency currency) {
-                Toast.makeText(MainActivity.this,
-                    String.format("name: %s\ncurrencySymbol: %s", country.getName(), currency.getSymbol())
-                    , Toast.LENGTH_SHORT).show();
-            }
-        }))
-    .commit();
+            CountryCurrencyPicker pickerFragment = CountryCurrencyPicker.newInstance(new CountryAndCurrenciesPickerListener() {
+                @Override
+                public void onSelect(Country country, Currency currency) {
+                    Toast.makeText(MainActivity.this,
+                            String.format("name: %s\ncurrencySymbol: %s", country.getName(), currency.getSymbol())
+                            , Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, pickerFragment).commit();
 ```
 
 #### use as dialog
 ```java
-CountryCurrencyPicker picker = CountryCurrencyPicker.newInstance(new CountryAndCurrenciesPickerListener() {
-    @Override
-    public void onSelect(Country country, Currency currency) {
-        Toast.makeText(MainActivity.this,
-            String.format("name: %s\ncurrencySymbol: %s", country.getName(), currency.getSymbol())
-            , Toast.LENGTH_SHORT).show();
+            CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(new CountryAndCurrenciesPickerListener() {
+                @Override
+                public void onSelect(Country country, Currency currency) {
+                    Toast.makeText(MainActivity.this,
+                            String.format("name: %s\ncurrencySymbol: %s", country.getName(), currency.getSymbol())
+                            , Toast.LENGTH_SHORT).show();
 
-        DialogFragment dialogFragment =
-            (DialogFragment) getSupportFragmentManager().findFragmentByTag(CountryCurrencyPicker.DIALOG_NAME);
-        dialogFragment.dismiss();
-    }
-});
+                    DialogFragment dialogFragment =
+                            (DialogFragment) getSupportFragmentManager().findFragmentByTag(CountryCurrencyPicker.DIALOG_NAME);
+                    dialogFragment.dismiss();
+                }
+            });
 
-picker.show(getSupportFragmentManager(), CountryCurrencyPicker.DIALOG_NAME);
+            pickerDialog.show(getSupportFragmentManager(), CountryCurrencyPicker.DIALOG_NAME);
+```
+##### dialog title
+Show and set up a dialog title. Dialog style can be changed by overriding the style attribute [see Customization](#customization)
+```java
+            pickerDialog.setDialogTitle(getString(R.string.country_currency_dialog_title));
 ```
 
 For more examples take a look into [MainActivity.java](/sample/src/main/java/com/scrounger/countrycurrencypicker/sample/MainActivity.java#L52)
@@ -113,14 +118,19 @@ To customize the style you can override the [layout files](/library/src/main/res
 ```java
 <resources>
 
-    <!-- Styles for recyclerView countrycurrencypicker_row-->
+    <!-- Style for use as Dialog-->
+    <style name="countryCurrencyPicker_dialog" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="android:windowNoTitle">false</item>
+    </style>
+
+
+    <!-- Styles for recyclerView row-->
     <style name="countryCurrencyPicker_row_item_container">
         <item name="android:paddingBottom">2dp</item>
         <item name="android:paddingTop">2dp</item>
         <item name="android:paddingStart">8dp</item>
         <item name="android:paddingEnd">8dp</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
-
     </style>
 
     <style name="countryCurrencyPicker_row_item_icon_flag">
