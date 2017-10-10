@@ -105,7 +105,7 @@ new CurrencyAndCountriesPickerListener()
 
             pickerDialog.show(getSupportFragmentManager(), CountryCurrencyPicker.DIALOG_NAME);
 ```
-##### dialog title
+#### dialog title
 Show and set up a dialog title. Dialog style can be changed by overriding the style attribute ([see Customization](#customization))
 ```java
             pickerDialog.setDialogTitle(getString(R.string.country_currency_dialog_title));
