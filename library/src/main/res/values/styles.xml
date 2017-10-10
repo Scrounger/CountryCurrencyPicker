@@ -15,14 +15,19 @@
 
 <resources>
 
-    <!-- Styles for recyclerView countrycurrencypicker_row-->
+    <!-- Style for use as Dialog-->
+    <style name="countryCurrencyPicker_dialog" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="android:windowNoTitle">false</item>
+    </style>
+
+
+    <!-- Styles for recyclerView row-->
     <style name="countryCurrencyPicker_row_item_container">
         <item name="android:paddingBottom">2dp</item>
         <item name="android:paddingTop">2dp</item>
         <item name="android:paddingStart">8dp</item>
         <item name="android:paddingEnd">8dp</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
-
     </style>
 
     <style name="countryCurrencyPicker_row_item_icon_flag">
@@ -63,10 +68,6 @@
         <item name="android:minWidth">30dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
-    </style>
-
-    <style name="countryCurrencyPicker_dialog" parent="@style/Theme.AppCompat.Light.Dialog">
-        <item name="android:windowNoTitle">false</item>
     </style>
 
 </resources>
