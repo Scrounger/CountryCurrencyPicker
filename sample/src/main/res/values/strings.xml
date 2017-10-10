@@ -15,6 +15,7 @@
 
 <resources>
     <string name="app_name">Country Currency Sample</string>
+
     <string name="menu_country">Country Fragment</string>
     <string name="menu_country_dialog">Country Dialog</string>
     <string name="menu_country_currency">Country &amp; Currency Fragment</string>
@@ -25,4 +26,8 @@
     <string name="menu_currency_countries">Currency &amp; Countries Fragment</string>
     <string name="menu_currency_countries_dialog">Currency &amp; Countries Dialog</string>
 
+    <string name="country_dialog_title">Select Country</string>
+    <string name="country_currency_dialog_title">Select Country &amp; Currency</string>
+    <string name="currency_dialog_title">Select Currency</string>
+    <string name="currency_countries_dialog_title">Select Currency &amp; Countries</string>
 </resources>

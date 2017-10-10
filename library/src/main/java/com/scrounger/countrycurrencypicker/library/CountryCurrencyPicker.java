@@ -51,6 +51,12 @@ public class CountryCurrencyPicker extends DialogFragment {
     private CountryCurrencyAdapter mAdapter;
 
     private FilterListAsync filterListAsync;
+
+    private String dialogTitle;
+
+    public void setDialogTitle(String dialogTitle) {
+        this.dialogTitle = dialogTitle;
+    }
     //endregion
 
     //region Constructor
@@ -87,12 +93,20 @@ public class CountryCurrencyPicker extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (dialogTitle != null) {
+            this.setStyle(STYLE_NORMAL, R.style.countryCurrencyPicker_dialog);
+        }
+
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.countrycurrencypicker_fragment, container, false);
+
+        if (getDialog() != null && dialogTitle != null) {
+            this.getDialog().setTitle(dialogTitle);
+        }
 
         return myView;
     }
