@@ -68,25 +68,7 @@ public class CountryCurrencyPicker extends DialogFragment {
     public CountryCurrencyPicker() {
     }
 
-    public static CountryCurrencyPicker newInstance(CountryPickerListener listener) {
-        CountryCurrencyPicker picker = new CountryCurrencyPicker();
-        picker.mListener = listener;
-        return picker;
-    }
-
-    public static CountryCurrencyPicker newInstance(CountryAndCurrenciesPickerListener listener) {
-        CountryCurrencyPicker picker = new CountryCurrencyPicker();
-        picker.mListener = listener;
-        return picker;
-    }
-
-    public static CountryCurrencyPicker newInstance(CurrencyPickerListener listener) {
-        CountryCurrencyPicker picker = new CountryCurrencyPicker();
-        picker.mListener = listener;
-        return picker;
-    }
-
-    public static CountryCurrencyPicker newInstance(CurrencyAndCountriesPickerListener listener) {
+    public static CountryCurrencyPicker newInstance(Object listener) {
         CountryCurrencyPicker picker = new CountryCurrencyPicker();
         picker.mListener = listener;
         return picker;
