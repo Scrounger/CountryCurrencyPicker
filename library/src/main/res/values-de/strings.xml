@@ -15,6 +15,6 @@
   -->
 
 <resources>
-    <string name="ccPicker_app_name">CountryCurrencyPicker</string>
-    <string name="ccPicker_search">Suchen…</string>
+    <string name="countryCurrencyPicker_app_name">CountryCurrencyPicker</string>
+    <string name="countryCurrencyPicker_search">Suchen…</string>
 </resources>
