@@ -46,4 +46,5 @@ dependencies {
     compile 'com.google.guava:guava:20.0'
 
     testCompile 'junit:junit:4.12'
+    compile 'org.jetbrains:annotations-java5:15.0'
 }

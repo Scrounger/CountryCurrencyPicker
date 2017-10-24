@@ -20,10 +20,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
+
+import org.jetbrains.annotations.Contract;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -114,6 +117,7 @@ public class Currency implements Parcelable {
     //endregion
 
     //region Retrieve
+    @Nullable
     public static Currency getCurrency(String countryCode, Context context) {
         Locale locale = new Locale("", countryCode);
         java.util.Currency currency = java.util.Currency.getInstance(locale);
@@ -128,6 +132,7 @@ public class Currency implements Parcelable {
         return null;
     }
 
+    @Contract("_, _ -> !null")
     public static Currency getCurrency(java.util.Currency currency, Context context) {
         return new Currency(
                 currency.getCurrencyCode(),
@@ -138,6 +143,7 @@ public class Currency implements Parcelable {
 
     private static ArrayList<Country> tmpCountries;
 
+    @Nullable
     public static Currency getCurrencyWithCountries(java.util.Currency currency, Context context) {
         final Currency myCurrency = getCurrency(currency, context);
 
