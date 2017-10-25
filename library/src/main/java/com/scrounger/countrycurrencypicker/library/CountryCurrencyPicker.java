@@ -18,6 +18,7 @@ package com.scrounger.countrycurrencypicker.library;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -68,7 +69,7 @@ public class CountryCurrencyPicker extends DialogFragment {
     public CountryCurrencyPicker() {
     }
 
-    public static CountryCurrencyPicker newInstance(Object listener) {
+    public static CountryCurrencyPicker newInstance(@NonNull Object listener) {
         CountryCurrencyPicker picker = new CountryCurrencyPicker();
         picker.mListener = listener;
         return picker;
