@@ -80,8 +80,7 @@ public class CountryCurrencyPicker extends DialogFragment {
     }
 
     public static CountryCurrencyPicker newInstance(@NonNull Boolean showSubtitle, @NonNull Boolean showCodeOrCurrency, @NonNull Object listener) {
-        CountryCurrencyPicker picker = new CountryCurrencyPicker();
-        picker.mListener = listener;
+        CountryCurrencyPicker picker = CountryCurrencyPicker.newInstance(listener);
 
         picker.mShowSubTitle = showSubtitle;
         picker.mShowCodeOrCurrency = showCodeOrCurrency;
