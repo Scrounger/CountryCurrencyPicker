@@ -40,11 +40,15 @@ public class CountryCurrencyAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private ArrayList<Country> mCountryList;
     private ArrayList<Currency> mCurrencyList;
     private Object mListener;
+    private Boolean mShowSubTitle;
+    private Boolean mShowCodeOrCurrency;
 
-    public CountryCurrencyAdapter(ArrayList<Country> countryList, ArrayList<Currency> currencyList, Object listener) {
+    public CountryCurrencyAdapter(ArrayList<Country> countryList, ArrayList<Currency> currencyList, Object listener, Boolean showSubtitle, Boolean showCodeOrCurrency) {
         this.mCountryList = countryList;
         this.mCurrencyList = currencyList;
         this.mListener = listener;
+        this.mShowSubTitle = showSubtitle;
+        this.mShowCodeOrCurrency = showCodeOrCurrency;
     }
 
     @Override
@@ -112,6 +116,14 @@ public class CountryCurrencyAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 txtTitle.setText(myItem.getName());
 //                txtTitle.setText(myItem.getName() + " (" + myItem.getCode() + ")");
 
+                if (!mShowSubTitle) {
+                    txtSubTitle.setVisibility(View.GONE);
+                }
+
+                if (!mShowCodeOrCurrency) {
+                    txtCodeOrSymbol.setVisibility(View.GONE);
+                }
+
                 if (mListener instanceof CountryPickerListener) {
                     txtCodeOrSymbol.setText(myItem.getCode());
                     txtSubTitle.setVisibility(View.GONE);
@@ -164,6 +176,14 @@ public class CountryCurrencyAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
                 txtTitle.setText(myItem.getName());
                 txtCodeOrSymbol.setText(myItem.getSymbol());
+
+                if (!mShowSubTitle) {
+                    txtSubTitle.setVisibility(View.GONE);
+                }
+
+                if (!mShowCodeOrCurrency) {
+                    txtCodeOrSymbol.setVisibility(View.GONE);
+                }
 
                 if (mListener instanceof CurrencyPickerListener) {
                     txtSubTitle.setVisibility(View.GONE);

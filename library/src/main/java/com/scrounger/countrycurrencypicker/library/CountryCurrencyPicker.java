@@ -56,6 +56,9 @@ public class CountryCurrencyPicker extends DialogFragment {
     private LinearLayoutManager mLinearLayoutManager;
     private CountryCurrencyAdapter mAdapter;
 
+    private Boolean mShowSubTitle = true;
+    private Boolean mShowCodeOrCurrency = true;
+
     private FilterListAsync filterListAsync;
 
     private String dialogTitle;
@@ -72,6 +75,17 @@ public class CountryCurrencyPicker extends DialogFragment {
     public static CountryCurrencyPicker newInstance(@NonNull Object listener) {
         CountryCurrencyPicker picker = new CountryCurrencyPicker();
         picker.mListener = listener;
+
+        return picker;
+    }
+
+    public static CountryCurrencyPicker newInstance(@NonNull Boolean showSubtitle, @NonNull Boolean showCodeOrCurrency, @NonNull Object listener) {
+        CountryCurrencyPicker picker = new CountryCurrencyPicker();
+        picker.mListener = listener;
+
+        picker.mShowSubTitle = showSubtitle;
+        picker.mShowCodeOrCurrency = showCodeOrCurrency;
+
         return picker;
     }
     //endregion
@@ -164,9 +178,9 @@ public class CountryCurrencyPicker extends DialogFragment {
 
     private void setRecyclerView(ArrayList<Country> countryList, ArrayList<Currency> currencyList) {
         if (countryList == null && currencyList == null) {
-            mAdapter = new CountryCurrencyAdapter(new ArrayList<Country>(), new ArrayList<Currency>(), mListener);
+            mAdapter = new CountryCurrencyAdapter(new ArrayList<Country>(), new ArrayList<Currency>(), mListener, mShowSubTitle, mShowCodeOrCurrency);
         } else {
-            mAdapter = new CountryCurrencyAdapter(countryList, currencyList, mListener);
+            mAdapter = new CountryCurrencyAdapter(countryList, currencyList, mListener, mShowSubTitle, mShowCodeOrCurrency);
         }
         mRecyclerView.setAdapter(mAdapter);
     }
