@@ -97,23 +97,30 @@ public class Country implements Parcelable {
     //endregion
 
     //region Retrieve
+    @Nullable
     public static Country getCountry(String countryCode, Context context) {
-        Locale locale = new Locale("", countryCode);
+        try {
+            Locale locale = new Locale("", countryCode);
 
-        return new Country(countryCode,
-                locale.getDisplayName(),
-                Helper.getFlagDrawableId(countryCode, context));
+            return new Country(countryCode,
+                    locale.getDisplayName(),
+                    Helper.getFlagDrawableId(countryCode, context));
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     @Nullable
     public static Country getCountryWithCurrency(String countryCode, Context context) {
         Country country = getCountry(countryCode, context);
 
-        Currency currency = Currency.getCurrency(countryCode, context);
-        if (currency != null) {
-            //z.B. Antarktis is null -> keine Währung
-            country.setCurrency(currency);
-            return country;
+        if (country != null) {
+            Currency currency = Currency.getCurrency(countryCode, context);
+            if (currency != null) {
+                //z.B. Antarktis is null -> keine Währung
+                country.setCurrency(currency);
+                return country;
+            }
         }
         return null;
     }
