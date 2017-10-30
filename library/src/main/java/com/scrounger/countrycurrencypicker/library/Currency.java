@@ -77,7 +77,7 @@ public class Currency implements Parcelable {
 
     private ArrayList<Country> countries;
 
-    @NonNull
+    @Nullable
     public ArrayList<Country> getCountries() {
         return countries;
     }
@@ -86,9 +86,9 @@ public class Currency implements Parcelable {
         this.countries = countries;
     }
 
-    private ArrayList<String> countriesNames;
+    private ArrayList<String> countriesNames = null;
 
-    @NonNull
+    @Nullable
     public ArrayList<String> getCountriesNames() {
         return countriesNames;
     }

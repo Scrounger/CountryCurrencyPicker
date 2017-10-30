@@ -68,7 +68,7 @@ public class Country implements Parcelable {
 
     private Currency currency;
 
-    @NonNull
+    @Nullable
     public Currency getCurrency() {
         return currency;
     }

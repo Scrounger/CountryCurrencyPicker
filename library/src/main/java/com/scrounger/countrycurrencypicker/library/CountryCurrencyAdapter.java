@@ -15,6 +15,7 @@
 
 package com.scrounger.countrycurrencypicker.library;
 
+import android.app.Dialog;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -24,10 +25,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.scrounger.countrycurrencypicker.library.Listener.CountryAndCurrenciesPickerListener;
-import com.scrounger.countrycurrencypicker.library.Listener.CountryPickerListener;
-import com.scrounger.countrycurrencypicker.library.Listener.CurrencyAndCountriesPickerListener;
-import com.scrounger.countrycurrencypicker.library.Listener.CurrencyPickerListener;
+import com.scrounger.countrycurrencypicker.library.Listener.CountryCurrencyPickerListener;
 
 import java.util.ArrayList;
 
@@ -39,16 +37,20 @@ public class CountryCurrencyAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private ViewHolderCurrencyItem mCurrencyHolder;
     private ArrayList<Country> mCountryList;
     private ArrayList<Currency> mCurrencyList;
-    private Object mListener;
+    private CountryCurrencyPicker.PickerType mPickerType;
+    private CountryCurrencyPickerListener mListener;
     private Boolean mShowSubTitle;
     private Boolean mShowCodeOrCurrency;
+    private Dialog mDialog;
 
-    public CountryCurrencyAdapter(ArrayList<Country> countryList, ArrayList<Currency> currencyList, Object listener, Boolean showSubtitle, Boolean showCodeOrCurrency) {
+    public CountryCurrencyAdapter(ArrayList<Country> countryList, ArrayList<Currency> currencyList, Boolean showSubtitle, Boolean showCodeOrCurrency, CountryCurrencyPicker.PickerType pickerType, CountryCurrencyPickerListener listener, Dialog dialog) {
         this.mCountryList = countryList;
         this.mCurrencyList = currencyList;
-        this.mListener = listener;
         this.mShowSubTitle = showSubtitle;
         this.mShowCodeOrCurrency = showCodeOrCurrency;
+        this.mPickerType = pickerType;
+        this.mListener = listener;
+        this.mDialog = dialog;
     }
 
     @Override
@@ -86,7 +88,7 @@ public class CountryCurrencyAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         private final String logTAG = ViewHolderCountryItem.class.getName() + ".";
 
         //region Members
-        private Country myItem;
+        private Country myCountry;
         private ImageView flag;
         private TextView txtTitle;
         private TextView txtSubTitle;
@@ -104,17 +106,17 @@ public class CountryCurrencyAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         }
 
         public void setItem(Country item) {
-            myItem = item;
+            myCountry = item;
 
-            if (myItem != null) {
-                if (myItem.getFlagId() != 0) {
-                    flag.setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), myItem.getFlagId()));
+            if (myCountry != null) {
+                if (myCountry.getFlagId() != 0) {
+                    flag.setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), myCountry.getFlagId()));
                 } else {
                     flag.setImageDrawable(null);
                 }
 
-                txtTitle.setText(myItem.getName());
-//                txtTitle.setText(myItem.getName() + " (" + myItem.getCode() + ")");
+                txtTitle.setText(myCountry.getName());
+//                txtTitle.setText(myCurrency.getName() + " (" + myCurrency.getCode() + ")");
 
                 if (!mShowSubTitle) {
                     txtSubTitle.setVisibility(View.GONE);
@@ -124,22 +126,22 @@ public class CountryCurrencyAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     txtCodeOrSymbol.setVisibility(View.GONE);
                 }
 
-                if (mListener instanceof CountryPickerListener) {
-                    txtCodeOrSymbol.setText(myItem.getCode());
+                if (mPickerType == CountryCurrencyPicker.PickerType.COUNTRY) {
+                    txtCodeOrSymbol.setText(myCountry.getCode());
                     txtSubTitle.setVisibility(View.GONE);
-                } else if (mListener instanceof CountryAndCurrenciesPickerListener) {
-                    txtSubTitle.setText(myItem.getCurrency().getName());
-                    txtCodeOrSymbol.setText(myItem.getCurrency().getSymbol());
+                } else if (mPickerType == CountryCurrencyPicker.PickerType.COUNTRYandCURRENCY) {
+                    txtSubTitle.setText(myCountry.getCurrency().getName());
+                    txtCodeOrSymbol.setText(myCountry.getCurrency().getSymbol());
                 }
             }
         }
 
         @Override
         public void onClick(View view) {
-            if (mListener instanceof CountryPickerListener) {
-                ((CountryPickerListener) mListener).onSelect(myItem);
-            } else if (mListener instanceof CountryAndCurrenciesPickerListener) {
-                ((CountryAndCurrenciesPickerListener) mListener).onSelect(myItem, myItem.getCurrency());
+            mListener.onSelectCountry(myCountry);
+
+            if (mDialog != null) {
+                mDialog.dismiss();
             }
         }
     }
@@ -147,7 +149,7 @@ public class CountryCurrencyAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public class ViewHolderCurrencyItem extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         //region Members
-        private Currency myItem;
+        private Currency myCurrency;
         private ImageView flag;
         private TextView txtTitle;
         private TextView txtSubTitle;
@@ -165,17 +167,17 @@ public class CountryCurrencyAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         }
 
         public void setItem(Currency item) {
-            myItem = item;
+            myCurrency = item;
 
-            if (myItem != null) {
-                if (myItem.getFlagId() != 0) {
-                    flag.setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), myItem.getFlagId()));
+            if (myCurrency != null) {
+                if (myCurrency.getFlagId() != 0) {
+                    flag.setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), myCurrency.getFlagId()));
                 } else {
                     flag.setImageDrawable(null);
                 }
 
-                txtTitle.setText(myItem.getName());
-                txtCodeOrSymbol.setText(myItem.getSymbol());
+                txtTitle.setText(myCurrency.getName());
+                txtCodeOrSymbol.setText(myCurrency.getSymbol());
 
                 if (!mShowSubTitle) {
                     txtSubTitle.setVisibility(View.GONE);
@@ -185,20 +187,20 @@ public class CountryCurrencyAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     txtCodeOrSymbol.setVisibility(View.GONE);
                 }
 
-                if (mListener instanceof CurrencyPickerListener) {
+                if (mPickerType == CountryCurrencyPicker.PickerType.CURRENCY) {
                     txtSubTitle.setVisibility(View.GONE);
-                } else if (mListener instanceof CurrencyAndCountriesPickerListener) {
-                    txtSubTitle.setText(TextUtils.join(", ", myItem.getCountriesNames()));
+                } else if (mPickerType == CountryCurrencyPicker.PickerType.CURRENCYandCOUNTRY) {
+                    txtSubTitle.setText(TextUtils.join(", ", myCurrency.getCountriesNames()));
                 }
             }
         }
 
         @Override
         public void onClick(View view) {
-            if (mListener instanceof CurrencyPickerListener) {
-                ((CurrencyPickerListener) mListener).onSelect(myItem);
-            } else if (mListener instanceof CurrencyAndCountriesPickerListener) {
-                ((CurrencyAndCountriesPickerListener) mListener).onSelect(myItem, myItem.getCountries(), myItem.getCountriesNames());
+            mListener.onSelectCurrency(myCurrency);
+
+            if (mDialog != null) {
+                mDialog.dismiss();
             }
         }
     }

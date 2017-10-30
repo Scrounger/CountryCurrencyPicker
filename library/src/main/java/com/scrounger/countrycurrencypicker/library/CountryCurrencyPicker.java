@@ -33,10 +33,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-import com.scrounger.countrycurrencypicker.library.Listener.CountryAndCurrenciesPickerListener;
-import com.scrounger.countrycurrencypicker.library.Listener.CountryPickerListener;
-import com.scrounger.countrycurrencypicker.library.Listener.CurrencyAndCountriesPickerListener;
-import com.scrounger.countrycurrencypicker.library.Listener.CurrencyPickerListener;
+import com.scrounger.countrycurrencypicker.library.Listener.CountryCurrencyPickerListener;
 
 import java.util.ArrayList;
 
@@ -46,9 +43,16 @@ public class CountryCurrencyPicker extends DialogFragment {
     public static final String DIALOG_NAME = CountryCurrencyPicker.class.getName();
 
     //region Member
+
+    private PickerType mPickerType;
+
+    public enum PickerType {
+        COUNTRY, COUNTRYandCURRENCY, CURRENCY, CURRENCYandCOUNTRY;
+    }
+
     private View myView;
 
-    private Object mListener;
+    private CountryCurrencyPickerListener mListener;
 
     private EditText txtSearch;
     private ProgressBar progressBar;
@@ -72,15 +76,16 @@ public class CountryCurrencyPicker extends DialogFragment {
     public CountryCurrencyPicker() {
     }
 
-    public static CountryCurrencyPicker newInstance(@NonNull Object listener) {
+    public static CountryCurrencyPicker newInstance(@NonNull PickerType pickerType, @NonNull CountryCurrencyPickerListener countryCurrencyPickerListener) {
         CountryCurrencyPicker picker = new CountryCurrencyPicker();
-        picker.mListener = listener;
+        picker.mPickerType = pickerType;
+        picker.mListener = countryCurrencyPickerListener;
 
         return picker;
     }
 
-    public static CountryCurrencyPicker newInstance(@NonNull Boolean showSubtitle, @NonNull Boolean showCodeOrCurrency, @NonNull Object listener) {
-        CountryCurrencyPicker picker = CountryCurrencyPicker.newInstance(listener);
+    public static CountryCurrencyPicker newInstance(@NonNull PickerType pickerType, @NonNull Boolean showSubtitle, @NonNull Boolean showCodeOrCurrency, @NonNull CountryCurrencyPickerListener countryCurrencyPickerListener) {
+        CountryCurrencyPicker picker = CountryCurrencyPicker.newInstance(pickerType, countryCurrencyPickerListener);
 
         picker.mShowSubTitle = showSubtitle;
         picker.mShowCodeOrCurrency = showCodeOrCurrency;
@@ -98,11 +103,13 @@ public class CountryCurrencyPicker extends DialogFragment {
             this.setStyle(STYLE_NORMAL, R.style.countryCurrencyPicker_dialog);
         }
 
+
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+            savedInstanceState) {
         myView = inflater.inflate(R.layout.countrycurrencypicker_fragment, container, false);
 
         if (getDialog() != null && dialogTitle != null) {
@@ -177,9 +184,9 @@ public class CountryCurrencyPicker extends DialogFragment {
 
     private void setRecyclerView(ArrayList<Country> countryList, ArrayList<Currency> currencyList) {
         if (countryList == null && currencyList == null) {
-            mAdapter = new CountryCurrencyAdapter(new ArrayList<Country>(), new ArrayList<Currency>(), mListener, mShowSubTitle, mShowCodeOrCurrency);
+            mAdapter = new CountryCurrencyAdapter(new ArrayList<Country>(), new ArrayList<Currency>(), mShowSubTitle, mShowCodeOrCurrency, mPickerType, mListener, getDialog());
         } else {
-            mAdapter = new CountryCurrencyAdapter(countryList, currencyList, mListener, mShowSubTitle, mShowCodeOrCurrency);
+            mAdapter = new CountryCurrencyAdapter(countryList, currencyList, mShowSubTitle, mShowCodeOrCurrency, mPickerType, mListener, getDialog());
         }
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -199,13 +206,13 @@ public class CountryCurrencyPicker extends DialogFragment {
         protected Void doInBackground(String... strings) {
             for (String filterString : strings) {
 
-                if (mListener instanceof CountryPickerListener) {
+                if (mPickerType == PickerType.COUNTRY) {
                     mCountryList = Country.listAll(getActivity(), filterString);
-                } else if (mListener instanceof CountryAndCurrenciesPickerListener) {
+                } else if (mPickerType == PickerType.COUNTRYandCURRENCY) {
                     mCountryList = Country.listAllWithCurrencies(getActivity(), filterString);
-                } else if (mListener instanceof CurrencyPickerListener) {
+                } else if (mPickerType == PickerType.CURRENCY) {
                     mCurrencyList = Currency.listAll(getActivity(), filterString);
-                } else if (mListener instanceof CurrencyAndCountriesPickerListener) {
+                } else if (mPickerType == PickerType.CURRENCYandCOUNTRY) {
                     mCurrencyList = Currency.listAllWithCountries(getActivity(), filterString);
                 }
             }

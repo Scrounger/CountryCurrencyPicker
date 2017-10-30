@@ -16,30 +16,23 @@
 package com.scrounger.countrycurrencypicker.sample;
 
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.scrounger.countrycurrencypicker.library.CountryCurrencyPicker;
 import com.scrounger.countrycurrencypicker.library.Country;
-import com.scrounger.countrycurrencypicker.library.Listener.CountryAndCurrenciesPickerListener;
-import com.scrounger.countrycurrencypicker.library.Listener.CountryPickerListener;
+import com.scrounger.countrycurrencypicker.library.CountryCurrencyPicker;
 import com.scrounger.countrycurrencypicker.library.Currency;
-import com.scrounger.countrycurrencypicker.library.Listener.CurrencyAndCountriesPickerListener;
-import com.scrounger.countrycurrencypicker.library.Listener.CurrencyPickerListener;
+import com.scrounger.countrycurrencypicker.library.Listener.CountryCurrencyPickerListener;
 
-import java.util.ArrayList;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CountryCurrencyPickerListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
 
     }
@@ -58,31 +51,13 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.action_country) {
             getSupportActionBar().setTitle(R.string.menu_country);
 
-            CountryCurrencyPicker pickerFragment = CountryCurrencyPicker.newInstance(new CountryPickerListener() {
-                @Override
-                public void onSelect(Country country) {
-                    Toast.makeText(MainActivity.this,
-                            String.format("name: %s\ncode: %s", country.getName(), country.getCode())
-                            , Toast.LENGTH_SHORT).show();
-                }
-            });
+            CountryCurrencyPicker pickerFragment = CountryCurrencyPicker.newInstance(CountryCurrencyPicker.PickerType.COUNTRY, this);
 
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, pickerFragment).commit();
 
         } else if (id == R.id.action_country_dialog) {
-            CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(new CountryPickerListener() {
-                @Override
-                public void onSelect(Country country) {
-                    Toast.makeText(MainActivity.this,
-                            String.format("name: %s\ncode: %s", country.getName(), country.getCode())
-                            , Toast.LENGTH_SHORT).show();
-
-                    DialogFragment dialogFragment =
-                            (DialogFragment) getSupportFragmentManager().findFragmentByTag(CountryCurrencyPicker.DIALOG_NAME);
-                    dialogFragment.dismiss();
-                }
-            });
+            CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(CountryCurrencyPicker.PickerType.COUNTRY, this);
 
             pickerDialog.setDialogTitle(getString(R.string.country_dialog_title));
             pickerDialog.show(getSupportFragmentManager(), CountryCurrencyPicker.DIALOG_NAME);
@@ -90,31 +65,13 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.action_country_currency) {
             getSupportActionBar().setTitle(R.string.menu_country_currency);
 
-            CountryCurrencyPicker pickerFragment = CountryCurrencyPicker.newInstance(new CountryAndCurrenciesPickerListener() {
-                @Override
-                public void onSelect(Country country, Currency currency) {
-                    Toast.makeText(MainActivity.this,
-                            String.format("name: %s\ncurrencySymbol: %s", country.getName(), currency.getSymbol())
-                            , Toast.LENGTH_SHORT).show();
-                }
-            });
+            CountryCurrencyPicker pickerFragment = CountryCurrencyPicker.newInstance(CountryCurrencyPicker.PickerType.COUNTRYandCURRENCY, this);
 
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, pickerFragment).commit();
 
         } else if (id == R.id.action_country_currency_dialog) {
-            CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(new CountryAndCurrenciesPickerListener() {
-                @Override
-                public void onSelect(Country country, Currency currency) {
-                    Toast.makeText(MainActivity.this,
-                            String.format("name: %s\ncurrencySymbol: %s", country.getName(), currency.getSymbol())
-                            , Toast.LENGTH_SHORT).show();
-
-                    DialogFragment dialogFragment =
-                            (DialogFragment) getSupportFragmentManager().findFragmentByTag(CountryCurrencyPicker.DIALOG_NAME);
-                    dialogFragment.dismiss();
-                }
-            });
+            CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(CountryCurrencyPicker.PickerType.COUNTRYandCURRENCY, this);
 
             pickerDialog.setDialogTitle(getString(R.string.country_currency_dialog_title));
             pickerDialog.show(getSupportFragmentManager(), CountryCurrencyPicker.DIALOG_NAME);
@@ -122,31 +79,13 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.action_currency) {
             getSupportActionBar().setTitle(R.string.menu_currency);
 
-            CountryCurrencyPicker pickerFragment = CountryCurrencyPicker.newInstance(new CurrencyPickerListener() {
-                @Override
-                public void onSelect(Currency currency) {
-                    Toast.makeText(MainActivity.this,
-                            String.format("name: %s\nsymbol: %s", currency.getName(), currency.getName())
-                            , Toast.LENGTH_SHORT).show();
-                }
-            });
+            CountryCurrencyPicker pickerFragment = CountryCurrencyPicker.newInstance(CountryCurrencyPicker.PickerType.CURRENCY, this);
 
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, pickerFragment).commit();
 
         } else if (id == R.id.action_currency_dialog) {
-            CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(new CurrencyPickerListener() {
-                @Override
-                public void onSelect(Currency currency) {
-                    Toast.makeText(MainActivity.this,
-                            String.format("name: %s\nsymbol: %s", currency.getName(), currency.getName())
-                            , Toast.LENGTH_SHORT).show();
-
-                    DialogFragment dialogFragment =
-                            (DialogFragment) getSupportFragmentManager().findFragmentByTag(CountryCurrencyPicker.DIALOG_NAME);
-                    dialogFragment.dismiss();
-                }
-            });
+            CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(CountryCurrencyPicker.PickerType.CURRENCY, this);
 
             pickerDialog.setDialogTitle(getString(R.string.currency_dialog_title));
             pickerDialog.show(getSupportFragmentManager(), CountryCurrencyPicker.DIALOG_NAME);
@@ -154,36 +93,44 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.action_currency_countries) {
             getSupportActionBar().setTitle(R.string.menu_currency_countries);
 
-            CountryCurrencyPicker pickerFragment = CountryCurrencyPicker.newInstance(new CurrencyAndCountriesPickerListener() {
-                @Override
-                public void onSelect(Currency currency, ArrayList<Country> countries, ArrayList<String> countriesNames) {
-                    Toast.makeText(MainActivity.this,
-                            String.format("name: %s\ncurrencySymbol: %s\ncountries: %s", currency.getName(), currency.getSymbol(), TextUtils.join(", ", countriesNames))
-                            , Toast.LENGTH_SHORT).show();
-                }
-            });
+            CountryCurrencyPicker pickerFragment = CountryCurrencyPicker.newInstance(CountryCurrencyPicker.PickerType.CURRENCYandCOUNTRY, this);
 
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, pickerFragment).commit();
 
         } else if (id == R.id.action_currency_countries_dialog) {
-            CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(new CurrencyAndCountriesPickerListener() {
-                @Override
-                public void onSelect(Currency currency, ArrayList<Country> countries, ArrayList<String> countriesNames) {
-                    Toast.makeText(MainActivity.this,
-                            String.format("name: %s\ncurrencySymbol: %s\ncountries: %s", currency.getName(), currency.getSymbol(), TextUtils.join(", ", countriesNames))
-                            , Toast.LENGTH_SHORT).show();
-
-                    DialogFragment dialogFragment =
-                            (DialogFragment) getSupportFragmentManager().findFragmentByTag(CountryCurrencyPicker.DIALOG_NAME);
-                    dialogFragment.dismiss();
-                }
-            });
+            CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(CountryCurrencyPicker.PickerType.CURRENCYandCOUNTRY, this);
 
             pickerDialog.setDialogTitle(getString(R.string.currency_countries_dialog_title));
             pickerDialog.show(getSupportFragmentManager(), CountryCurrencyPicker.DIALOG_NAME);
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSelectCountry(Country country) {
+        if (country.getCurrency() == null) {
+            Toast.makeText(MainActivity.this,
+                    String.format("name: %s\ncode: %s", country.getName(), country.getCode())
+                    , Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(MainActivity.this,
+                    String.format("name: %s\ncurrencySymbol: %s", country.getName(), country.getCurrency().getSymbol())
+                    , Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onSelectCurrency(Currency currency) {
+        if (currency.getCountries() == null) {
+            Toast.makeText(MainActivity.this,
+                    String.format("name: %s\nsymbol: %s", currency.getName(), currency.getSymbol())
+                    , Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(MainActivity.this,
+                    String.format("name: %s\ncurrencySymbol: %s\ncountries: %s", currency.getName(), currency.getSymbol(), TextUtils.join(", ", currency.getCountriesNames()))
+                    , Toast.LENGTH_SHORT).show();
+        }
     }
 }
