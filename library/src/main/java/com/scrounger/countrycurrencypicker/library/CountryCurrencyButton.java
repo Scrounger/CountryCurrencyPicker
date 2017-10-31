@@ -19,29 +19,30 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 
-public class CountryCurrencyButton extends android.support.v7.widget.AppCompatButton {
+import com.scrounger.countrycurrencypicker.library.Listener.CountryCurrencyPickerListener;
+
+public class CountryCurrencyButton extends AppCompatButton implements CountryCurrencyPickerListener {
     private final String logTAG = CountryCurrencyAdapter.class.getName() + ".";
 
-    private Country country;
+    private Country mCountry;
+    CountryCurrencyPickerListener mClickListener;
 
     public Country getCountry() {
-        return country;
+        return mCountry;
     }
 
-    public void setCountry(Country country) {
-        this.country = country;
+    public void setCountry(Country mCountry) {
+        this.mCountry = mCountry;
         invalidate();
     }
 
     public void setCountry(String countryCode) {
-        this.country = Country.getCountry(countryCode, getContext());
+        this.mCountry = Country.getCountry(countryCode, getContext());
         invalidate();
-    }
-
-    public CountryCurrencyButton(Context context) {
-        super(context);
     }
 
     public CountryCurrencyButton(Context context, AttributeSet attrs) {
@@ -59,9 +60,34 @@ public class CountryCurrencyButton extends android.support.v7.widget.AppCompatBu
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        if (country != null) {
-            setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getContext(), country.getFlagId()), null, null, null);
-            setText(country.getName());
+        if (mCountry != null) {
+            setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getContext(), mCountry.getFlagId()), null, null, null);
+            setText(mCountry.getName());
         }
+    }
+
+    @Override
+    public boolean performClick() {
+        CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(CountryCurrencyPicker.PickerType.COUNTRY, this);
+
+        pickerDialog.setDialogTitle(getContext().getString(R.string.countryCurrencyPicker_select_country));
+        pickerDialog.show(((AppCompatActivity) getContext()).getSupportFragmentManager(), CountryCurrencyPicker.DIALOG_NAME);
+
+        return super.performClick();
+    }
+
+    public void setOnClickListener(CountryCurrencyPickerListener listener) {
+        mClickListener = listener;
+    }
+
+    @Override
+    public void onSelectCountry(Country country) {
+        mClickListener.onSelectCountry(country);
+        setCountry(country);
+    }
+
+    @Override
+    public void onSelectCurrency(Currency currency) {
+        mClickListener.onSelectCurrency(currency);
     }
 }

@@ -16,4 +16,5 @@
 <resources>
     <string name="countryCurrencyPicker_app_name">CountryCurrencyPicker</string>
     <string name="countryCurrencyPicker_search">Search…</string>
+    <string name="countryCurrencyPicker_select_country">Select mCountry</string>
 </resources>

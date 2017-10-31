@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2017 Scrounger
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -17,4 +16,5 @@
 <resources>
     <string name="countryCurrencyPicker_app_name">CountryCurrencyPicker</string>
     <string name="countryCurrencyPicker_search">Suchen…</string>
+    <string name="countryCurrencyPicker_select_country">Land auswählen</string>
 </resources>

@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.scrounger.countrycurrencypicker.library.Country;
+import com.scrounger.countrycurrencypicker.library.CountryCurrencyButton;
 import com.scrounger.countrycurrencypicker.library.CountryCurrencyPicker;
 import com.scrounger.countrycurrencypicker.library.Currency;
 import com.scrounger.countrycurrencypicker.library.Listener.CountryCurrencyPickerListener;
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity implements CountryCurrencyPi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        CountryCurrencyButton button = (CountryCurrencyButton) findViewById(R.id.button);
+
+        button.setOnClickListener(this);
 
     }
 
