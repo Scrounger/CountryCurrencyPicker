@@ -44,7 +44,7 @@ public class CountryCurrencyPicker extends DialogFragment {
 
     //region Member
 
-    private static final String Bundle_PickerType = "com.scrounger.countrycurrencypicker.library.pickerType";
+    private static final String Bundle_PickerType = CountryCurrencyPicker.class.getName() + ".pickerType";
     private PickerType mPickerType;
 
     public enum PickerType {
@@ -53,7 +53,7 @@ public class CountryCurrencyPicker extends DialogFragment {
 
     private View myView;
 
-    private static final String Bundle_Listener = "com.scrounger.countrycurrencypicker.library.listener";
+    private static final String Bundle_Listener = CountryCurrencyPicker.class.getName() + ".listener";
     private CountryCurrencyPickerListener mListener;
 
     private EditText txtSearch;
