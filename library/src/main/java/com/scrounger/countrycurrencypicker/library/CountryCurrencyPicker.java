@@ -44,6 +44,7 @@ public class CountryCurrencyPicker extends DialogFragment {
 
     //region Member
 
+    private static final String Bundle_PickerType = "com.scrounger.countrycurrencypicker.library.pickerType";
     private PickerType mPickerType;
 
     public enum PickerType {
@@ -52,6 +53,7 @@ public class CountryCurrencyPicker extends DialogFragment {
 
     private View myView;
 
+    private static final String Bundle_Listener = "com.scrounger.countrycurrencypicker.library.listener";
     private CountryCurrencyPickerListener mListener;
 
     private EditText txtSearch;
@@ -78,8 +80,11 @@ public class CountryCurrencyPicker extends DialogFragment {
 
     public static CountryCurrencyPicker newInstance(@NonNull PickerType pickerType, @NonNull CountryCurrencyPickerListener countryCurrencyPickerListener) {
         CountryCurrencyPicker picker = new CountryCurrencyPicker();
-        picker.mPickerType = pickerType;
-        picker.mListener = countryCurrencyPickerListener;
+
+        Bundle bdl = new Bundle();
+        bdl.putSerializable(Bundle_PickerType, pickerType);
+        bdl.putSerializable(Bundle_Listener, countryCurrencyPickerListener);
+        picker.setArguments(bdl);
 
         return picker;
     }
@@ -102,8 +107,6 @@ public class CountryCurrencyPicker extends DialogFragment {
         if (dialogTitle != null) {
             this.setStyle(STYLE_NORMAL, R.style.countryCurrencyPicker_dialog);
         }
-
-
     }
 
     @Nullable
@@ -111,6 +114,9 @@ public class CountryCurrencyPicker extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         myView = inflater.inflate(R.layout.countrycurrencypicker_fragment, container, false);
+
+        mListener = (CountryCurrencyPickerListener) getArguments().getSerializable(Bundle_Listener);
+        mPickerType = (PickerType) getArguments().getSerializable(Bundle_PickerType);
 
         if (getDialog() != null && dialogTitle != null) {
             this.getDialog().setTitle(dialogTitle);
