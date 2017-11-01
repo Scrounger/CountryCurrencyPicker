@@ -28,8 +28,9 @@ import com.scrounger.countrycurrencypicker.library.Listener.CountryCurrencyPicke
 public class CountryCurrencyButton extends AppCompatButton implements CountryCurrencyPickerListener {
     private final String logTAG = CountryCurrencyAdapter.class.getName() + ".";
 
+    private CountryCurrencyPickerListener mClickListener;
+
     private Country mCountry;
-    CountryCurrencyPickerListener mClickListener;
 
     public Country getCountry() {
         return mCountry;
@@ -41,8 +42,22 @@ public class CountryCurrencyButton extends AppCompatButton implements CountryCur
     }
 
     public void setCountry(String countryCode) {
-        this.mCountry = Country.getCountry(countryCode, getContext());
+        if (!isShowCurrency()) {
+            this.mCountry = Country.getCountry(countryCode, getContext());
+        } else {
+            this.mCountry = Country.getCountryWithCurrency(countryCode, getContext());
+        }
         invalidate();
+    }
+
+    private Boolean mShowCurrency = false;
+
+    public Boolean isShowCurrency() {
+        return mShowCurrency;
+    }
+
+    public void setShowCurrency(Boolean mShowCurrency) {
+        this.mShowCurrency = mShowCurrency;
     }
 
     public CountryCurrencyButton(Context context, AttributeSet attrs) {
@@ -51,6 +66,7 @@ public class CountryCurrencyButton extends AppCompatButton implements CountryCur
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.countryCurrencyPicker);
         try {
             setCountry(a.getString(R.styleable.countryCurrencyPicker_country_code));
+            setShowCurrency(a.getBoolean(R.styleable.countryCurrencyPicker_show_currency, false));
         } finally {
             a.recycle();
         }
@@ -62,13 +78,24 @@ public class CountryCurrencyButton extends AppCompatButton implements CountryCur
 
         if (mCountry != null) {
             setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(getContext(), mCountry.getFlagId()), null, null, null);
-            setText(mCountry.getName());
+            if (isShowCurrency() && mCountry.getCurrency() != null) {
+                setText(String.format("%s (%s)", mCountry.getName(), mCountry.getCurrency().getSymbol()));
+            } else {
+                setText(mCountry.getName());
+            }
         }
     }
 
     @Override
     public boolean performClick() {
-        CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(CountryCurrencyPicker.PickerType.COUNTRY, this);
+        CountryCurrencyPicker.PickerType pickerType;
+        if (!isShowCurrency()) {
+            pickerType = CountryCurrencyPicker.PickerType.COUNTRY;
+        } else {
+            pickerType = CountryCurrencyPicker.PickerType.COUNTRYandCURRENCY;
+        }
+
+        CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(pickerType, this);
 
         pickerDialog.setDialogTitle(getContext().getString(R.string.countryCurrencyPicker_select_country));
         pickerDialog.show(((AppCompatActivity) getContext()).getSupportFragmentManager(), CountryCurrencyPicker.DIALOG_NAME);

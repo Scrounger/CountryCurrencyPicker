@@ -2,5 +2,6 @@
 <resources>
     <declare-styleable name="countryCurrencyPicker">
         <attr name="country_code" format="string" />
+        <attr name="show_currency" format="boolean" />
     </declare-styleable>
 </resources>
