@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.scrounger.countrycurrencypicker.library;
+package com.scrounger.countrycurrencypicker.library.Buttons;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -24,7 +24,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 
+import com.scrounger.countrycurrencypicker.library.Country;
+import com.scrounger.countrycurrencypicker.library.CountryCurrencyAdapter;
+import com.scrounger.countrycurrencypicker.library.CountryCurrencyPicker;
+import com.scrounger.countrycurrencypicker.library.Currency;
 import com.scrounger.countrycurrencypicker.library.Listener.CountryCurrencyPickerListener;
+import com.scrounger.countrycurrencypicker.library.R;
 
 public class CountryCurrencyButton extends AppCompatButton implements CountryCurrencyPickerListener {
     private final String logTAG = CountryCurrencyAdapter.class.getName() + ".";

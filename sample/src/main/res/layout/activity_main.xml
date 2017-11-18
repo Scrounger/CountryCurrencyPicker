@@ -24,7 +24,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.scrounger.countrycurrencypicker.sample.MainActivity">
 
-    <com.scrounger.countrycurrencypicker.library.CountryCurrencyButton
+    <com.scrounger.countrycurrencypicker.library.Buttons.CountryCurrencyButton
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

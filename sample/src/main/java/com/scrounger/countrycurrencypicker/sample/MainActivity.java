@@ -23,7 +23,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.scrounger.countrycurrencypicker.library.Country;
-import com.scrounger.countrycurrencypicker.library.CountryCurrencyButton;
+import com.scrounger.countrycurrencypicker.library.Buttons.CountryCurrencyButton;
 import com.scrounger.countrycurrencypicker.library.CountryCurrencyPicker;
 import com.scrounger.countrycurrencypicker.library.Currency;
 import com.scrounger.countrycurrencypicker.library.Listener.CountryCurrencyPickerListener;
