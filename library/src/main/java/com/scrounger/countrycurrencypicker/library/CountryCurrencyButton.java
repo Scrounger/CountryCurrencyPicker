@@ -18,6 +18,7 @@ package com.scrounger.countrycurrencypicker.library;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.os.Parcelable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
@@ -63,6 +64,8 @@ public class CountryCurrencyButton extends AppCompatButton implements CountryCur
     public CountryCurrencyButton(Context context, AttributeSet attrs) {
         super(context, attrs);
 
+        setSaveEnabled(true);
+
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.countryCurrencyPicker);
         try {
             setCountry(a.getString(R.styleable.countryCurrencyPicker_country_code));
@@ -101,6 +104,22 @@ public class CountryCurrencyButton extends AppCompatButton implements CountryCur
         pickerDialog.show(((AppCompatActivity) getContext()).getSupportFragmentManager(), CountryCurrencyPicker.DIALOG_NAME);
 
         return super.performClick();
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        CountryCurrencyButtonSaveState ss = new CountryCurrencyButtonSaveState(superState);
+        ss.setCountryCode(mCountry.getCode());
+        return ss;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        CountryCurrencyButtonSaveState ss = (CountryCurrencyButtonSaveState) state;
+        super.onRestoreInstanceState(ss.getSuperState());
+        
+        setCountry(ss.getCountryCode());
     }
 
     public void setOnClickListener(CountryCurrencyPickerListener listener) {
