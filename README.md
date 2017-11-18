@@ -36,7 +36,7 @@ Step 2\. Add the dependency
 
 ```java
 dependencies {
-        compile 'com.github.scrounger:countrycurrencypicker:1.0.4'
+        compile 'com.github.scrounger:countrycurrencypicker:1.1.0'
 }
 ```
 
@@ -47,14 +47,14 @@ The library provides 4 different listener that defines which picker will start
 Showing all available countries in local language, searching only for country names is possible
 
 ```java
-new CountryPickerListener()
+PickerType.COUNTRY
 ```
 #### 2\. Country and Currency
 
 Showing all available countries with their currency in local language, searching for country names, currency names and currency symbols is possible
 
 ```java
-new CountryAndCurrenciesPickerListener()
+PickerType.COUNTRYandCURRENCY
 ```
 
 #### 3\. Currency
@@ -62,7 +62,7 @@ new CountryAndCurrenciesPickerListener()
 Showing all available currencies in local language, searching only for currency names and currency symbols is possible
 
 ```java
-new CurrencyPickerListener()
+PickerType.CURRENCY
 ```
 
 #### 4\. Currency and Country
@@ -70,17 +70,28 @@ new CurrencyPickerListener()
 Showing all available currencies with their countries in local language, searching for currency names, currency symbols and countries is possible
 
 ```java
-new CurrencyAndCountriesPickerListener()
+PickerType.CURRENCYandCOUNTRY
 ```
 
 #### use as fragment (embed in your own activity)
 ```java
-            CountryCurrencyPicker pickerFragment = CountryCurrencyPicker.newInstance(new CountryAndCurrenciesPickerListener() {
+            CountryCurrencyPicker pickerFragment = CountryCurrencyPicker.newInstance(PickerType.COUNTRY, new CountryCurrencyPickerListener() {
                 @Override
-                public void onSelect(Country country, Currency currency) {
-                    Toast.makeText(MainActivity.this,
-                            String.format("name: %s\ncurrencySymbol: %s", country.getName(), currency.getSymbol())
-                            , Toast.LENGTH_SHORT).show();
+                public void onSelectCountry(Country country) {
+                    if (country.getCurrency() == null) {
+                        Toast.makeText(MainActivity.this,
+                                String.format("name: %s\ncode: %s", country.getName(), country.getCode())
+                                , Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MainActivity.this,
+                                String.format("name: %s\ncurrencySymbol: %s", country.getName(), country.getCurrency().getSymbol())
+                                , Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onSelectCurrency(Currency currency) {
+
                 }
             });
 
@@ -90,16 +101,23 @@ new CurrencyAndCountriesPickerListener()
 
 #### use as dialog
 ```java
-            CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(new CountryAndCurrenciesPickerListener() {
+            CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(PickerType.COUNTRYandCURRENCY, new CountryCurrencyPickerListener() {
                 @Override
-                public void onSelect(Country country, Currency currency) {
-                    Toast.makeText(MainActivity.this,
-                            String.format("name: %s\ncurrencySymbol: %s", country.getName(), currency.getSymbol())
-                            , Toast.LENGTH_SHORT).show();
+                public void onSelectCountry(Country country) {
 
-                    DialogFragment dialogFragment =
-                            (DialogFragment) getSupportFragmentManager().findFragmentByTag(CountryCurrencyPicker.DIALOG_NAME);
-                    dialogFragment.dismiss();
+                }
+
+                @Override
+                public void onSelectCurrency(Currency currency) {
+                    if (currency.getCountries() == null) {
+                        Toast.makeText(MainActivity.this,
+                                String.format("name: %s\nsymbol: %s", currency.getName(), currency.getSymbol())
+                                , Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MainActivity.this,
+                                String.format("name: %s\ncurrencySymbol: %s\ncountries: %s", currency.getName(), currency.getSymbol(), TextUtils.join(", ", currency.getCountriesNames()))
+                                , Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 
