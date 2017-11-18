@@ -24,8 +24,10 @@ import android.support.annotation.Nullable;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
+import com.google.common.collect.Iterables;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Locale;
@@ -105,6 +107,26 @@ public class Country implements Parcelable {
             return new Country(countryCode,
                     locale.getDisplayName(),
                     Helper.getFlagDrawableId(countryCode, context));
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    @Nullable
+    public static Country getCountryByName(final String countryName, Context context) {
+        try {
+
+            Locale locale = Iterables.find(Arrays.asList(Locale.getAvailableLocales()), new Predicate<Locale>() {
+
+                @Override
+                public boolean apply(Locale input) {
+                    return input.getDisplayCountry(Locale.US).equals(countryName);
+                }
+            });
+
+            return new Country(locale.getCountry(),
+                    locale.getDisplayName(),
+                    Helper.getFlagDrawableId(locale.getCountry(), context));
         } catch (NullPointerException e) {
             return null;
         }
