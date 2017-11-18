@@ -47,10 +47,6 @@ public class CountryCurrencyPicker extends DialogFragment {
     private static final String Bundle_PickerType = CountryCurrencyPicker.class.getName() + ".pickerType";
     private PickerType mPickerType;
 
-    public enum PickerType {
-        COUNTRY, COUNTRYandCURRENCY, CURRENCY, CURRENCYandCOUNTRY;
-    }
-
     private View myView;
 
     private static final String Bundle_Listener = CountryCurrencyPicker.class.getName() + ".listener";

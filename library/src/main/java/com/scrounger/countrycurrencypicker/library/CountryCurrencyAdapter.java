@@ -37,13 +37,13 @@ public class CountryCurrencyAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private ViewHolderCurrencyItem mCurrencyHolder;
     private ArrayList<Country> mCountryList;
     private ArrayList<Currency> mCurrencyList;
-    private CountryCurrencyPicker.PickerType mPickerType;
+    private PickerType mPickerType;
     private CountryCurrencyPickerListener mListener;
     private Boolean mShowSubTitle;
     private Boolean mShowCodeOrCurrency;
     private Dialog mDialog;
 
-    public CountryCurrencyAdapter(ArrayList<Country> countryList, ArrayList<Currency> currencyList, Boolean showSubtitle, Boolean showCodeOrCurrency, CountryCurrencyPicker.PickerType pickerType, CountryCurrencyPickerListener listener, Dialog dialog) {
+    public CountryCurrencyAdapter(ArrayList<Country> countryList, ArrayList<Currency> currencyList, Boolean showSubtitle, Boolean showCodeOrCurrency, PickerType pickerType, CountryCurrencyPickerListener listener, Dialog dialog) {
         this.mCountryList = countryList;
         this.mCurrencyList = currencyList;
         this.mShowSubTitle = showSubtitle;
@@ -126,10 +126,10 @@ public class CountryCurrencyAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     txtCodeOrSymbol.setVisibility(View.GONE);
                 }
 
-                if (mPickerType == CountryCurrencyPicker.PickerType.COUNTRY) {
+                if (mPickerType == PickerType.COUNTRY) {
                     txtCodeOrSymbol.setText(myCountry.getCode());
                     txtSubTitle.setVisibility(View.GONE);
-                } else if (mPickerType == CountryCurrencyPicker.PickerType.COUNTRYandCURRENCY) {
+                } else if (mPickerType == PickerType.COUNTRYandCURRENCY) {
                     txtSubTitle.setText(myCountry.getCurrency().getName());
                     txtCodeOrSymbol.setText(myCountry.getCurrency().getSymbol());
                 }
@@ -187,9 +187,9 @@ public class CountryCurrencyAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     txtCodeOrSymbol.setVisibility(View.GONE);
                 }
 
-                if (mPickerType == CountryCurrencyPicker.PickerType.CURRENCY) {
+                if (mPickerType == PickerType.CURRENCY) {
                     txtSubTitle.setVisibility(View.GONE);
-                } else if (mPickerType == CountryCurrencyPicker.PickerType.CURRENCYandCOUNTRY) {
+                } else if (mPickerType == PickerType.CURRENCYandCOUNTRY) {
                     txtSubTitle.setText(TextUtils.join(", ", myCurrency.getCountriesNames()));
                 }
             }

@@ -22,11 +22,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.scrounger.countrycurrencypicker.library.Country;
 import com.scrounger.countrycurrencypicker.library.Buttons.CountryCurrencyButton;
+import com.scrounger.countrycurrencypicker.library.Country;
 import com.scrounger.countrycurrencypicker.library.CountryCurrencyPicker;
 import com.scrounger.countrycurrencypicker.library.Currency;
 import com.scrounger.countrycurrencypicker.library.Listener.CountryCurrencyPickerListener;
+import com.scrounger.countrycurrencypicker.library.PickerType;
 
 public class MainActivity extends AppCompatActivity implements CountryCurrencyPickerListener {
 
@@ -36,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements CountryCurrencyPi
         setContentView(R.layout.activity_main);
 
         CountryCurrencyButton button = (CountryCurrencyButton) findViewById(R.id.button);
-
         button.setOnClickListener(this);
 
     }
@@ -55,13 +55,13 @@ public class MainActivity extends AppCompatActivity implements CountryCurrencyPi
         if (item.getItemId() == R.id.action_country) {
             getSupportActionBar().setTitle(R.string.menu_country);
 
-            CountryCurrencyPicker pickerFragment = CountryCurrencyPicker.newInstance(CountryCurrencyPicker.PickerType.COUNTRY, this);
+            CountryCurrencyPicker pickerFragment = CountryCurrencyPicker.newInstance(PickerType.COUNTRY, this);
 
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, pickerFragment).commit();
 
         } else if (id == R.id.action_country_dialog) {
-            CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(CountryCurrencyPicker.PickerType.COUNTRY, this);
+            CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(PickerType.COUNTRY, this);
 
             pickerDialog.setDialogTitle(getString(R.string.country_dialog_title));
             pickerDialog.show(getSupportFragmentManager(), CountryCurrencyPicker.DIALOG_NAME);
@@ -69,13 +69,13 @@ public class MainActivity extends AppCompatActivity implements CountryCurrencyPi
         } else if (id == R.id.action_country_currency) {
             getSupportActionBar().setTitle(R.string.menu_country_currency);
 
-            CountryCurrencyPicker pickerFragment = CountryCurrencyPicker.newInstance(CountryCurrencyPicker.PickerType.COUNTRYandCURRENCY, this);
+            CountryCurrencyPicker pickerFragment = CountryCurrencyPicker.newInstance(PickerType.COUNTRYandCURRENCY, this);
 
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, pickerFragment).commit();
 
         } else if (id == R.id.action_country_currency_dialog) {
-            CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(CountryCurrencyPicker.PickerType.COUNTRYandCURRENCY, this);
+            CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(PickerType.COUNTRYandCURRENCY, this);
 
             pickerDialog.setDialogTitle(getString(R.string.country_currency_dialog_title));
             pickerDialog.show(getSupportFragmentManager(), CountryCurrencyPicker.DIALOG_NAME);
@@ -83,13 +83,13 @@ public class MainActivity extends AppCompatActivity implements CountryCurrencyPi
         } else if (id == R.id.action_currency) {
             getSupportActionBar().setTitle(R.string.menu_currency);
 
-            CountryCurrencyPicker pickerFragment = CountryCurrencyPicker.newInstance(CountryCurrencyPicker.PickerType.CURRENCY, this);
+            CountryCurrencyPicker pickerFragment = CountryCurrencyPicker.newInstance(PickerType.CURRENCY, this);
 
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, pickerFragment).commit();
 
         } else if (id == R.id.action_currency_dialog) {
-            CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(CountryCurrencyPicker.PickerType.CURRENCY, this);
+            CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(PickerType.CURRENCY, this);
 
             pickerDialog.setDialogTitle(getString(R.string.currency_dialog_title));
             pickerDialog.show(getSupportFragmentManager(), CountryCurrencyPicker.DIALOG_NAME);
@@ -97,13 +97,13 @@ public class MainActivity extends AppCompatActivity implements CountryCurrencyPi
         } else if (id == R.id.action_currency_countries) {
             getSupportActionBar().setTitle(R.string.menu_currency_countries);
 
-            CountryCurrencyPicker pickerFragment = CountryCurrencyPicker.newInstance(CountryCurrencyPicker.PickerType.CURRENCYandCOUNTRY, this);
+            CountryCurrencyPicker pickerFragment = CountryCurrencyPicker.newInstance(PickerType.CURRENCYandCOUNTRY, this);
 
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, pickerFragment).commit();
 
         } else if (id == R.id.action_currency_countries_dialog) {
-            CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(CountryCurrencyPicker.PickerType.CURRENCYandCOUNTRY, this);
+            CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(PickerType.CURRENCYandCOUNTRY, this);
 
             pickerDialog.setDialogTitle(getString(R.string.currency_countries_dialog_title));
             pickerDialog.show(getSupportFragmentManager(), CountryCurrencyPicker.DIALOG_NAME);

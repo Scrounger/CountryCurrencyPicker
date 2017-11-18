@@ -29,6 +29,7 @@ import com.scrounger.countrycurrencypicker.library.CountryCurrencyAdapter;
 import com.scrounger.countrycurrencypicker.library.CountryCurrencyPicker;
 import com.scrounger.countrycurrencypicker.library.Currency;
 import com.scrounger.countrycurrencypicker.library.Listener.CountryCurrencyPickerListener;
+import com.scrounger.countrycurrencypicker.library.PickerType;
 import com.scrounger.countrycurrencypicker.library.R;
 
 public class CountryCurrencyButton extends AppCompatButton implements CountryCurrencyPickerListener {
@@ -96,11 +97,11 @@ public class CountryCurrencyButton extends AppCompatButton implements CountryCur
 
     @Override
     public boolean performClick() {
-        CountryCurrencyPicker.PickerType pickerType;
+        PickerType pickerType;
         if (!isShowCurrency()) {
-            pickerType = CountryCurrencyPicker.PickerType.COUNTRY;
+            pickerType = PickerType.COUNTRY;
         } else {
-            pickerType = CountryCurrencyPicker.PickerType.COUNTRYandCURRENCY;
+            pickerType = PickerType.COUNTRYandCURRENCY;
         }
 
         CountryCurrencyPicker pickerDialog = CountryCurrencyPicker.newInstance(pickerType, this);
