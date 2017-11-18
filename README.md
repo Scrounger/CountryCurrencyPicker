@@ -193,3 +193,27 @@ To customize the style you can override the [layout files](/library/src/main/res
 
 </resources>
 ```
+
+## Button
+Since version 1.1.0 library provides Buttons that can be used in xml layout files
+
+<p align="center">
+  <img src="/Screenshots/button.png" width="250"/>
+</p>
+
+```java
+    <com.scrounger.countrycurrencypicker.library.Buttons.CountryCurrencyButton
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:country_code="US"
+        app:show_currency="true" />
+```
+You can set <i>country_code</i> and <i>show_currency</i> directly in the xml layout file. Or define it befor you initialize the button, for exampl in the create method:
+```java
+        CountryCurrencyButton button = (CountryCurrencyButton) findViewById(R.id.button);
+        button.setOnClickListener(this);
+
+        button.setCountry("DE");
+        button.setShowCurrency(false);
+```
