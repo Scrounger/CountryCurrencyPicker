@@ -236,9 +236,19 @@ public class Currency implements Parcelable {
             }
         });
     }
-
-
     //endregion
+
+    @Override
+    public String toString() {
+        return "Currency{" +
+                "code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", symbol='" + symbol + '\'' +
+                ", flagId=" + flagId +
+                ", countries=" + countries +
+                ", countriesNames=" + countriesNames +
+                '}';
+    }
 
     //region Parcelable
     @Override

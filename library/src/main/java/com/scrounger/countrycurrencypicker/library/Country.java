@@ -210,6 +210,18 @@ public class Country implements Parcelable {
     }
     //endregion
 
+
+    @Override
+    public String toString() {
+        return "Country{" +
+                "code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", flagId=" + flagId +
+                ", currency=" + currency +
+                ", locale=" + locale +
+                '}';
+    }
+
     //region Parcelable
     @Override
     public int describeContents() {
@@ -245,4 +257,5 @@ public class Country implements Parcelable {
         }
     };
     //endregion
+
 }
