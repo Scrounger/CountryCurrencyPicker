@@ -195,7 +195,7 @@ To customize the style you can override the [layout files](/library/src/main/res
 ```
 
 ## Button
-Since version 1.1.0 library provides Buttons that can be used in xml layout files
+Since version 1.1.0 the library provides Buttons that can be used directly in xml layout files. Button shows the countryName and the countryFlag. On click it opens the picker dialog.
 
 <p align="center">
   <img src="/Screenshots/button.png" width="250"/>
@@ -209,11 +209,35 @@ Since version 1.1.0 library provides Buttons that can be used in xml layout file
         app:country_code="US"
         app:show_currency="true" />
 ```
-You can set <i>country_code</i> and <i>show_currency</i> directly in the xml layout file. Or define it befor you initialize the button, for exampl in the create method:
+
+You can set <i>country_code</i> and <i>show_currency</i> directly in the xml layout file. Or define it befor you initialize the button, for example in the create method:
 ```java
         CountryCurrencyButton button = (CountryCurrencyButton) findViewById(R.id.button);
         button.setOnClickListener(this);
-
         button.setCountry("DE");
         button.setShowCurrency(false);
+```
+
+To receive the selected country, just use the <i>CountryCurrencyPickerListener</i> as <i>button.setOnClickListener()</i> listener:
+```java
+        CountryCurrencyButton button = (CountryCurrencyButton) findViewById(R.id.button);
+        button.setOnClickListener(new CountryCurrencyPickerListener() {
+            @Override
+            public void onSelectCountry(Country country) {
+                if (country.getCurrency() == null) {
+                    Toast.makeText(MainActivity.this,
+                            String.format("name: %s\ncode: %s", country.getName(), country.getCode())
+                            , Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this,
+                            String.format("name: %s\ncurrencySymbol: %s", country.getName(), country.getCurrency().getSymbol())
+                            , Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onSelectCurrency(Currency currency) {
+
+            }
+        });
 ```
