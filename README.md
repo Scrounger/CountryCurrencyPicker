@@ -36,7 +36,7 @@ Step 2\. Add the dependency
 
 ```java
 dependencies {
-        compile 'com.github.scrounger:countrycurrencypicker:1.1.0'
+        compile 'com.github.scrounger:countrycurrencypicker:1.1.1'
 }
 ```
 
